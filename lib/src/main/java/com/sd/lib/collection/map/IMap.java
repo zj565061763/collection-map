@@ -12,5 +12,7 @@ public interface IMap<K, V>
 
     int size();
 
+    void clear();
+
     Map<K, V> toMap();
 }
