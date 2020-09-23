@@ -1,12 +1,12 @@
 package com.sd.lib.collection.map;
 
 /**
- * 值唯一的Map
+ * 键和值都是唯一的Map
  *
  * @param <K>
  * @param <V>
  */
-public interface IUniqueValueMap<K, V> extends IMap<K, V>
+public interface IUniqueMap<K, V> extends IMap<K, V>
 {
     /**
      * 移除某个指定的value

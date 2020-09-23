@@ -10,6 +10,8 @@ public interface IMap<K, V>
 
     V get(Object key);
 
+    boolean containsKey(Object key);
+
     int size();
 
     void clear();

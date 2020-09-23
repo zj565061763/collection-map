@@ -1,7 +1,7 @@
 package com.sd.lib.collection.map.impl;
 
 import com.sd.lib.collection.map.IMap;
-import com.sd.lib.collection.map.IUniqueValueMap;
+import com.sd.lib.collection.map.IUniqueMap;
 
 import java.util.Map;
 
@@ -11,12 +11,12 @@ import java.util.Map;
  * @param <K>
  * @param <V>
  */
-public class BaseUniqueValueMap<K, V> implements IUniqueValueMap<K, V>
+public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
 {
     private final IMap<K, V> mMap;
     private final IMap<V, K> mMapReverse;
 
-    public BaseUniqueValueMap(IMap<K, V> map, IMap<V, K> mapReverse)
+    public BaseUniqueMap(IMap<K, V> map, IMap<V, K> mapReverse)
     {
         mMap = map;
         mMapReverse = mapReverse;
@@ -74,6 +74,15 @@ public class BaseUniqueValueMap<K, V> implements IUniqueValueMap<K, V>
             return null;
 
         return mMap.get(key);
+    }
+
+    @Override
+    public boolean containsKey(Object key)
+    {
+        if (key == null)
+            return false;
+
+        return mMap.containsKey(key);
     }
 
     @Override
