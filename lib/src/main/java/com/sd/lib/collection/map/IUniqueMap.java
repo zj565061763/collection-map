@@ -1,7 +1,7 @@
 package com.sd.lib.collection.map;
 
 /**
- * 键和值都是唯一的Map
+ * key和value都是唯一的Map
  *
  * @param <K>
  * @param <V>

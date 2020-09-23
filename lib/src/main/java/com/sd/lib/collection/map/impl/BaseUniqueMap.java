@@ -6,7 +6,7 @@ import com.sd.lib.collection.map.IUniqueMap;
 import java.util.Map;
 
 /**
- * 未考虑多线程问题，如果需要在多线程下使用，请手动同步
+ * key和value都是唯一的Map
  *
  * @param <K>
  * @param <V>
