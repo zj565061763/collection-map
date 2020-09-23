@@ -42,6 +42,7 @@ public class ExampleInstrumentedTest
         assertEquals("1", map.get("c"));
         assertEquals("c", map.getKeyByValue("1"));
         assertEquals("c", map.removeKeyByValue("1"));
+        assertEquals(0, map.size());
     }
 
     @Test
@@ -57,5 +58,6 @@ public class ExampleInstrumentedTest
         assertEquals("1", map.get("c"));
         assertEquals("c", map.getKeyByValue("1"));
         assertEquals("c", map.removeKeyByValue("1"));
+        assertEquals(0, map.size());
     }
 }
