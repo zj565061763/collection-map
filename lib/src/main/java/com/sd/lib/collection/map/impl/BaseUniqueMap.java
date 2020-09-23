@@ -37,7 +37,7 @@ public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
             if (key.equals(cacheKey))
             {
                 // 已经存储过了
-                return null;
+                return value;
             } else
             {
                 // 移除旧的键值对，存储新的键值对
