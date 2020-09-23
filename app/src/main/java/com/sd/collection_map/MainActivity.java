@@ -37,11 +37,11 @@ public class MainActivity extends AppCompatActivity
 
         mWeakKeyUniqueMap.put(new Object(), this);
         mWeakKeyUniqueMap.put(new Object(), this);
-        mWeakKeyUniqueMap.put(new Object(), this);
+        mWeakKeyUniqueMap.put(this, new Object());
 
         mWeakValueUniqueMap.put(this, new Object());
         mWeakValueUniqueMap.put(this, new Object());
-        mWeakValueUniqueMap.put(this, new Object());
+        mWeakValueUniqueMap.put(new Object(), this);
 
         printSize();
     }
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     private void printSize()
     {
         Log.i(TAG, "FWeakKeyMap size:" + mWeakKeyMap.size());
-        Log.i(TAG, "FWeakValueMap size:" + mWeakKeyMap.size());
+        Log.i(TAG, "FWeakValueMap size:" + mWeakValueMap.size());
         Log.i(TAG, "FUniqueMap size:" + mUniqueMap.size());
         Log.i(TAG, "FWeakKeyUniqueMap size:" + mWeakKeyUniqueMap.size());
         Log.i(TAG, "FWeakValueUniqueMap size:" + mWeakValueUniqueMap.size());
