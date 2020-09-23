@@ -1,10 +1,9 @@
 package com.sd.lib.collection.map.impl;
 
+import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.IUniqueValueMap;
 
-import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 未考虑多线程问题，如果需要在多线程下使用，请手动同步
@@ -12,10 +11,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * @param <K>
  * @param <V>
  */
-public class FUniqueValueMap<K, V> implements IUniqueValueMap<K, V>
+public class BaseUniqueValueMap<K, V> implements IUniqueValueMap<K, V>
 {
-    private final Map<K, V> mMap = new ConcurrentHashMap<>();
-    private final Map<V, K> mMapReverse = new ConcurrentHashMap<>();
+    private final IMap<K, V> mMap;
+    private final IMap<V, K> mMapReverse;
+
+    public BaseUniqueValueMap(IMap<K, V> map, IMap<V, K> mapReverse)
+    {
+        mMap = map;
+        mMapReverse = mapReverse;
+    }
 
     @Override
     public V put(K key, V value)
@@ -87,7 +92,7 @@ public class FUniqueValueMap<K, V> implements IUniqueValueMap<K, V>
     @Override
     public Map<K, V> toMap()
     {
-        return new HashMap<>(mMap);
+        return mMap.toMap();
     }
 
     @Override
