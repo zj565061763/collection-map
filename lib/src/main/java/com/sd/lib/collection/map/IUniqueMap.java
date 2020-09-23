@@ -9,12 +9,12 @@ package com.sd.lib.collection.map;
 public interface IUniqueMap<K, V> extends IMap<K, V>
 {
     /**
-     * 移除某个指定的value
+     * 根据value移除key
      *
      * @param value
      * @return
      */
-    K removeValue(Object value);
+    K removeKeyByValue(Object value);
 
     /**
      * 根据value查找key
@@ -22,5 +22,5 @@ public interface IUniqueMap<K, V> extends IMap<K, V>
      * @param value
      * @return
      */
-    K getKey(Object value);
+    K getKeyByValue(Object value);
 }
