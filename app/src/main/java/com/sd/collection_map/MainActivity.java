@@ -9,6 +9,7 @@ import com.sd.lib.collection.map.impl.FUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakKeyMap;
 import com.sd.lib.collection.map.impl.FWeakKeyUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakValueMap;
+import com.sd.lib.collection.map.impl.FWeakValueUniqueMap;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity
 
     private final FUniqueMap<Object, Object> mUniqueMap = new FUniqueMap<>();
     private final FWeakKeyUniqueMap<Object, Object> mWeakKeyUniqueMap = new FWeakKeyUniqueMap<>();
+    private final FWeakValueUniqueMap<Object, Object> mWeakValueUniqueMap = new FWeakValueUniqueMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,13 +31,17 @@ public class MainActivity extends AppCompatActivity
         mWeakKeyMap.put(new Object(), this);
         mWeakValueMap.put(this, new Object());
 
-        mUniqueMap.put(new Object(), "1");
-        mUniqueMap.put(new Object(), "1");
-        mUniqueMap.put(new Object(), "1");
+        mUniqueMap.put(new Object(), this);
+        mUniqueMap.put(new Object(), this);
+        mUniqueMap.put(new Object(), this);
 
-        mWeakKeyUniqueMap.put(new Object(), "1");
-        mWeakKeyUniqueMap.put(new Object(), "1");
-        mWeakKeyUniqueMap.put(new Object(), "1");
+        mWeakKeyUniqueMap.put(new Object(), this);
+        mWeakKeyUniqueMap.put(new Object(), this);
+        mWeakKeyUniqueMap.put(new Object(), this);
+
+        mWeakValueUniqueMap.put(this, new Object());
+        mWeakValueUniqueMap.put(this, new Object());
+        mWeakValueUniqueMap.put(this, new Object());
 
         printSize();
     }
@@ -53,5 +59,6 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "FWeakValueMap size:" + mWeakKeyMap.size());
         Log.i(TAG, "FUniqueMap size:" + mUniqueMap.size());
         Log.i(TAG, "FWeakKeyUniqueMap size:" + mWeakKeyUniqueMap.size());
+        Log.i(TAG, "FWeakValueUniqueMap size:" + mWeakValueUniqueMap.size());
     }
 }
