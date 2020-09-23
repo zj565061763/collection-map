@@ -8,6 +8,7 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * value是弱引用的Map
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 public class FWeakValueMap<K, V> implements IMap<K, V>
 {
-    private final Map<K, WeakReference<V>> mMap = new HashMap<>();
+    private final Map<K, WeakReference<V>> mMap = new ConcurrentHashMap<>();
     private final ReferenceQueue<V> mReferenceQueue = new ReferenceQueue<>();
 
     @Override
@@ -89,15 +90,20 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
     public Map<K, V> toMap()
     {
         releaseReference();
-
         final Map<K, V> map = new HashMap<>();
-        for (Map.Entry<K, WeakReference<V>> item : mMap.entrySet())
+
+        final Iterator<Map.Entry<K, WeakReference<V>>> it = mMap.entrySet().iterator();
+        while (it.hasNext())
         {
+            final Map.Entry<K, WeakReference<V>> item = it.next();
             final K key = item.getKey();
             final V value = item.getValue().get();
             if (value != null)
             {
                 map.put(key, value);
+            } else
+            {
+                it.remove();
             }
         }
         return map;
