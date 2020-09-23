@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.sd.lib.collection.map.impl.FUniqueMap;
+import com.sd.lib.collection.map.impl.FWeakKeyUniqueMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +33,21 @@ public class ExampleInstrumentedTest
     public void test_FUniqueMap()
     {
         final FUniqueMap<Object, Object> map = new FUniqueMap<>();
+        assertEquals(null, map.put("a", "1"));
+        assertEquals(null, map.put("b", "1"));
+        assertEquals(null, map.put("c", "1"));
+        assertEquals("1", map.put("c", "1"));
+
+        assertEquals(1, map.size());
+        assertEquals("1", map.get("c"));
+        assertEquals("c", map.getKeyByValue("1"));
+        assertEquals("c", map.removeKeyByValue("1"));
+    }
+
+    @Test
+    public void test_FWeakKeyUniqueMap()
+    {
+        final FWeakKeyUniqueMap<Object, Object> map = new FWeakKeyUniqueMap<>();
         assertEquals(null, map.put("a", "1"));
         assertEquals(null, map.put("b", "1"));
         assertEquals(null, map.put("c", "1"));
