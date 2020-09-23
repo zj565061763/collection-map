@@ -32,10 +32,10 @@ public class ExampleInstrumentedTest
     public void test_FUniqueMap()
     {
         final FUniqueMap<String, String> map = new FUniqueMap<>();
-        map.put("a", "1");
-        map.put("b", "1");
-        map.put("c", "1");
-        map.put("c", "1");
+        assertEquals(null, map.put("a", "1"));
+        assertEquals(null, map.put("b", "1"));
+        assertEquals(null, map.put("c", "1"));
+        assertEquals("1", map.put("c", "1"));
 
         assertEquals(1, map.size());
         assertEquals("1", map.get("c"));
