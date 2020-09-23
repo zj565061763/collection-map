@@ -4,6 +4,6 @@ public class FUniqueMap<K, V> extends BaseUniqueMap<K, V>
 {
     public FUniqueMap()
     {
-        super(new FConcurrentMap<K, V>(), new FConcurrentMap<V, K>());
+        super(new FMap<K, V>(), new FMap<V, K>());
     }
 }
