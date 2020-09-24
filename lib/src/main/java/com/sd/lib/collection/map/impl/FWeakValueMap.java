@@ -131,8 +131,10 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
                 break;
 
             final K key = mMapReference.remove(reference);
-            if (key != null)
-                mMap.remove(key);
+            if (key == null)
+                continue;
+
+            mMap.remove(key);
         }
     }
 }
