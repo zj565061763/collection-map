@@ -3,6 +3,7 @@ package com.sd.collection_map.adapter;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.sd.collection_map.R;
@@ -21,8 +22,8 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
     private static final String TAG = RecyclerViewAdapter.class.getSimpleName();
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
-    private final Map<Object, Object> mMapWeak = new WeakHashMap<>();
-    private final IUniqueMap<Object, Object> mMapUnique = new FUniqueMap<>();
+    private final Map<View, Integer> mMapWeak = new WeakHashMap<>();
+    private final IUniqueMap<View, Integer> mMapUnique = new FUniqueMap<>();
 
     @Override
     public int getLayoutId(ViewGroup parent, int viewType)
