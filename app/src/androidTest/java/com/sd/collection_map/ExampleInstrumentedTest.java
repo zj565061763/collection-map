@@ -12,9 +12,6 @@ import com.sd.lib.collection.map.impl.FWeakValueUniqueMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -31,27 +28,6 @@ public class ExampleInstrumentedTest
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.sd.collection_map", appContext.getPackageName());
-    }
-
-    @Test
-    public void test_map()
-    {
-        final DataModel model1 = new DataModel(new String("1"));
-        final DataModel model2 = new DataModel(new String("1"));
-
-        assert(model1 == model2);
-
-        final Map<Object, Object> map = new HashMap<>();
-        final Object putResult1 = map.put("a", model1);
-        final Object putResult2 = map.put("a", model2);
-
-        assertEquals(null, putResult1);
-
-        assertEquals(model1, putResult2);
-        assertEquals(model2, putResult2);
-
-        assert(model1 == putResult2);
-        assert(model2 == putResult2);
     }
 
     @Test

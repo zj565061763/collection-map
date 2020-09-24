@@ -8,12 +8,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.collection_map.databinding.ActivityMainBinding;
 import com.sd.lib.collection.map.IMap;
-import com.sd.lib.collection.map.impl.FHashMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakKeyMap;
 import com.sd.lib.collection.map.impl.FWeakKeyUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakValueMap;
 import com.sd.lib.collection.map.impl.FWeakValueUniqueMap;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -50,8 +52,6 @@ public class MainActivity extends AppCompatActivity
         mWeakValueUniqueMap.put(this, new Object());
         mWeakValueUniqueMap.put(new Object(), this);
 
-        printSize();
-
         mBinding.btnTime.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity
                 printTime(new FWeakValueMap<Object, Object>());
             }
         });
+
+        testMap();
     }
 
     @Override
@@ -67,6 +69,25 @@ public class MainActivity extends AppCompatActivity
     {
         super.onResume();
         printSize();
+    }
+
+    private void testMap()
+    {
+        final DataModel model1 = new DataModel(new String("1"));
+        final DataModel model2 = new DataModel(new String("1"));
+
+        final Map<Object, Object> map = new HashMap<>();
+        final Object putResult1 = map.put("a", model1);
+        final Object putResult2 = map.put("a", model2);
+
+        Log.i(TAG, "putResult1:" + putResult1);
+        Log.i(TAG, "putResult2:" + putResult2);
+
+        Log.i(TAG, "model1 == putResult2:" + (model1 == putResult2));
+        Log.i(TAG, "model2 == putResult2:" + (model2 == putResult2));
+
+        Log.i(TAG, "model1 equals putResult2:" + (model1.equals(putResult2)));
+        Log.i(TAG, "model2 equals putResult2:" + (model2.equals(putResult2)));
     }
 
     private void printSize()
