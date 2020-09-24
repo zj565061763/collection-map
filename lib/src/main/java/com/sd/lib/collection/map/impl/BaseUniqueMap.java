@@ -105,7 +105,7 @@ public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
     }
 
     @Override
-    public K removeKeyByValue(Object value)
+    public K removeByValue(Object value)
     {
         if (value == null)
             return null;
