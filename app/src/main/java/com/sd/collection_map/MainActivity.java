@@ -2,9 +2,12 @@ package com.sd.collection_map;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sd.collection_map.databinding.ActivityMainBinding;
+import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakKeyMap;
 import com.sd.lib.collection.map.impl.FWeakKeyUniqueMap;
@@ -14,6 +17,8 @@ import com.sd.lib.collection.map.impl.FWeakValueUniqueMap;
 public class MainActivity extends AppCompatActivity
 {
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private ActivityMainBinding mBinding;
 
     private final FWeakKeyMap<Object, Object> mWeakKeyMap = new FWeakKeyMap<>();
     private final FWeakValueMap<Object, Object> mWeakValueMap = new FWeakValueMap<>();
@@ -26,7 +31,8 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
 
         mWeakKeyMap.put(new Object(), this);
         mWeakValueMap.put(this, new Object());
@@ -44,6 +50,15 @@ public class MainActivity extends AppCompatActivity
         mWeakValueUniqueMap.put(new Object(), this);
 
         printSize();
+
+        mBinding.btnTime.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                printTime(new FWeakValueUniqueMap<Object, Object>());
+            }
+        });
     }
 
     @Override
@@ -60,5 +75,15 @@ public class MainActivity extends AppCompatActivity
         Log.i(TAG, "FUniqueMap size:" + mUniqueMap.size());
         Log.i(TAG, "FWeakKeyUniqueMap size:" + mWeakKeyUniqueMap.size());
         Log.i(TAG, "FWeakValueUniqueMap size:" + mWeakValueUniqueMap.size());
+    }
+
+    private void printTime(IMap<Object, Object> map)
+    {
+        final long startTime = System.currentTimeMillis();
+        for (int i = 0; i < 100000; i++)
+        {
+            map.put(i, i + 1);
+        }
+        Log.i(TAG, "time:" + (System.currentTimeMillis() - startTime));
     }
 }
