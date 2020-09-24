@@ -5,7 +5,7 @@ import com.sd.lib.collection.map.IMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class FMap<K, V> implements IMap<K, V>
+public class FConcurrentHashMap<K, V> implements IMap<K, V>
 {
     private final Map<K, V> mMap = new ConcurrentHashMap<>();
 
