@@ -23,8 +23,8 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
     private static final String TAG = RecyclerViewAdapter.class.getSimpleName();
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
-    private final Map<View, Integer> mMapWeak = new WeakHashMap<>();
-    private final IUniqueMap<Integer, View> mMapPositionView = new FUniqueMap<>();
+    private final Map<Object, Object> mMapWeak = new WeakHashMap<>();
+    private final IUniqueMap<Object, Object> mMapUnique = new FUniqueMap<>();
 
     @Override
     public int getLayoutId(ViewGroup parent, int viewType)
@@ -39,7 +39,7 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
         binding.btn.setText(model.mObject.toString());
 
         mMapWeak.put(holder.itemView, position);
-        mMapPositionView.put(position, holder.itemView);
+        mMapUnique.put(position, holder.itemView);
 
         HANDLER.removeCallbacks(mRunnable);
         HANDLER.postDelayed(mRunnable, 1 * 1000);
@@ -51,7 +51,7 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
         public void run()
         {
             printMapWeak();
-            printMapPositionView();
+            printMapUnique();
         }
     };
 
@@ -60,11 +60,11 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
         Log.i(TAG, "printMapWeak mapSize:" + mMapWeak.size());
     }
 
-    private void printMapPositionView()
+    private void printMapUnique()
     {
-        final HashSet<Integer> keySet = new HashSet<>(mMapPositionView.toMap().keySet());
-        final HashSet<View> valueSet = new HashSet<>(mMapPositionView.toMap().values());
+        final HashSet<Object> keySet = new HashSet<>(mMapUnique.toMap().keySet());
+        final HashSet<Object> valueSet = new HashSet<>(mMapUnique.toMap().values());
 
-        Log.i(TAG, "printMapPositionView mapSize:" + mMapPositionView.toMap().size() + " keySize:" + keySet.size() + " valueSize:" + valueSet.size());
+        Log.i(TAG, "printMapUnique mapSize:" + mMapUnique.toMap().size() + " keySize:" + keySet.size() + " valueSize:" + valueSet.size());
     }
 }
