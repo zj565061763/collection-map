@@ -55,22 +55,23 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
 
         final WeakReference<V> refValue = mMap.get(key);
         if (refValue == null)
+            return null;
+
+        final V value = refValue.get();
+        if (value == null)
         {
+            // 值已经被回收，移除键值对
             mMap.remove(key);
             return null;
         }
 
-        return refValue.get();
+        return value;
     }
 
     @Override
     public boolean containsKey(Object key)
     {
-        if (key == null)
-            return false;
-
-        releaseReference();
-        return mMap.containsKey(key);
+        return get(key) != null;
     }
 
     @Override
