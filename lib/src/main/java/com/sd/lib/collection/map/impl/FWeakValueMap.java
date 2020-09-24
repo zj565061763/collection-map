@@ -28,6 +28,8 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         if (key == null || value == null)
             return null;
 
+        releaseReference();
+
         final WeakReference<V> refValue = new WeakReference<V>(value, mQueue);
         final WeakReference<V> oldValue = mMap.put(key, refValue);
         mMapReference.put(refValue, key);
@@ -48,6 +50,8 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         if (key == null)
             return null;
 
+        releaseReference();
+
         final WeakReference<V> refValue = mMap.remove(key);
         if (refValue != null)
         {
@@ -64,6 +68,8 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
     {
         if (key == null)
             return null;
+
+        releaseReference();
 
         final WeakReference<V> refValue = mMap.get(key);
         if (refValue == null)
@@ -97,6 +103,7 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
     public void clear()
     {
         mMap.clear();
+        mMapReference.clear();
     }
 
     @Override
