@@ -75,7 +75,6 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
             // 值已经被回收，移除键值对
             mMap.remove(key);
             mMapReference.remove(refValue);
-            return null;
         }
 
         return value;
@@ -110,11 +109,10 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         while (it.hasNext())
         {
             final Map.Entry<K, WeakReference<V>> item = it.next();
-            final K key = item.getKey();
             final V value = item.getValue().get();
             if (value != null)
             {
-                map.put(key, value);
+                map.put(item.getKey(), value);
             } else
             {
                 it.remove();
