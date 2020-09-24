@@ -31,7 +31,9 @@ public class ExampleInstrumentedTest
     @Test
     public void test_uniqueMap()
     {
-        FUniqueMap<Object, Object> map = new FUniqueMap<>();
+        FUniqueMap<Object, Object> map = null;
+
+        map = new FUniqueMap<>();
         assertEquals(null, map.put("2", "1"));
         assertEquals("1", map.put("3", "1"));
         assertEquals(1, map.size());
