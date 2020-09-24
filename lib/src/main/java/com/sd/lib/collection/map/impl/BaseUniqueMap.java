@@ -28,26 +28,21 @@ public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
         if (key == null || value == null)
             return null;
 
-        final K cacheKey = mMapReverse.get(value);
-        if (cacheKey == null)
+        V resultValue = null;
+
+        final K oldKey = mMapReverse.put(value, key);
+        if (oldKey != null)
         {
-            // 存储键值对
+            resultValue = mMap.remove(oldKey);
+            mMap.put(key, value);
         } else
         {
-            if (key.equals(cacheKey))
-            {
-                // 已经存储过了
-                return value;
-            } else
-            {
-                // 移除旧的键值对，存储新的键值对
-                mMap.remove(cacheKey);
-            }
+            resultValue = mMap.put(key, value);
+            if (resultValue != null)
+                mMapReverse.remove(resultValue);
         }
 
-        final V oldValue = mMap.put(key, value);
-        mMapReverse.put(value, key);
-        return oldValue;
+        return resultValue;
     }
 
     @Override
