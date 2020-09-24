@@ -132,9 +132,14 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
 
             final K key = mMapReference.remove(reference);
             if (key == null)
+            {
+                // 该引用已经被移除
                 continue;
+            }
 
-            mMap.remove(key);
+            final Reference<? extends V> oldReference = mMap.remove(key);
+            if (reference != oldReference)
+                throw new RuntimeException("reference != oldReference");
         }
     }
 }
