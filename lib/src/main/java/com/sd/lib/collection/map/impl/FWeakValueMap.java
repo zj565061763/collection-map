@@ -104,6 +104,7 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
     {
         mMap.clear();
         mMapReference.clear();
+        releaseReference();
     }
 
     @Override
