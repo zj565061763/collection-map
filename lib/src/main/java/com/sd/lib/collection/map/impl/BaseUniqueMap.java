@@ -45,9 +45,9 @@ public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
             }
         }
 
-        final V result = mMap.put(key, value);
+        final V oldValue = mMap.put(key, value);
         mMapReverse.put(value, key);
-        return result;
+        return oldValue;
     }
 
     @Override
