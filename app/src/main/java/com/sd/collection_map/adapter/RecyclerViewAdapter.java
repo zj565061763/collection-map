@@ -50,15 +50,21 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
         @Override
         public void run()
         {
+            printMapWeak();
             printMapPositionView();
         }
     };
+
+    private void printMapWeak()
+    {
+        Log.i(TAG, "printMapWeak mapSize:" + mMapWeak.size());
+    }
 
     private void printMapPositionView()
     {
         final HashSet<Integer> keySet = new HashSet<>(mMapPositionView.toMap().keySet());
         final HashSet<View> valueSet = new HashSet<>(mMapPositionView.toMap().values());
 
-        Log.i(TAG, "mapSize:" + mMapPositionView.toMap().size() + " keySize:" + keySet.size() + " valueSize:" + valueSet.size());
+        Log.i(TAG, "printMapPositionView mapSize:" + mMapPositionView.toMap().size() + " keySize:" + keySet.size() + " valueSize:" + valueSet.size());
     }
 }
