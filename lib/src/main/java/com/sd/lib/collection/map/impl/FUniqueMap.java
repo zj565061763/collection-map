@@ -10,6 +10,6 @@ public class FUniqueMap<K, V> extends BaseUniqueMap<K, V>
 {
     public FUniqueMap()
     {
-        super(new FConcurrentHashMap<K, V>(), new FConcurrentHashMap<V, K>());
+        super(new FHashMap<K, V>(), new FHashMap<V, K>());
     }
 }
