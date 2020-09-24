@@ -3,7 +3,6 @@ package com.sd.collection_map.adapter;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.sd.collection_map.R;
@@ -14,7 +13,6 @@ import com.sd.lib.adapter.viewholder.FRecyclerViewHolder;
 import com.sd.lib.collection.map.IUniqueMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.WeakHashMap;
 
@@ -62,9 +60,6 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
 
     private void printMapUnique()
     {
-        final HashSet<Object> keySet = new HashSet<>(mMapUnique.toMap().keySet());
-        final HashSet<Object> valueSet = new HashSet<>(mMapUnique.toMap().values());
-
-        Log.i(TAG, "printMapUnique mapSize:" + mMapUnique.toMap().size() + " keySize:" + keySet.size() + " valueSize:" + valueSet.size());
+        Log.i(TAG, "printMapUnique mapSize:" + mMapUnique.toMap().size());
     }
 }
