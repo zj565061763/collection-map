@@ -1,4 +1,4 @@
-package com.sd.collection_map;
+package com.sd.collection_map.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,7 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sd.collection_map.databinding.ActivityMainBinding;
+import com.sd.collection_map.databinding.ActivityMapBinding;
+import com.sd.collection_map.model.DataModel;
 import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakKeyMap;
@@ -17,11 +18,11 @@ import com.sd.lib.collection.map.impl.FWeakValueUniqueMap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity
+public class MapActivity extends AppCompatActivity
 {
-    public static final String TAG = MainActivity.class.getSimpleName();
+    public static final String TAG = MapActivity.class.getSimpleName();
 
-    private ActivityMainBinding mBinding;
+    private ActivityMapBinding mBinding;
 
     private final FWeakKeyMap<Object, Object> mWeakKeyMap = new FWeakKeyMap<>();
     private final FWeakValueMap<Object, Object> mWeakValueMap = new FWeakValueMap<>();
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        mBinding = ActivityMapBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
 
         mWeakKeyMap.put(new Object(), this);

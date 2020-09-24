@@ -1,4 +1,7 @@
-package com.sd.collection_map;
+package com.sd.collection_map.model;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataModel
 {
@@ -7,6 +10,16 @@ public class DataModel
     public DataModel(Object object)
     {
         mObject = object;
+    }
+
+    public static List<DataModel> get(int count)
+    {
+        final List<DataModel> list = new ArrayList<>();
+        for (int i = 0; i < count; i++)
+        {
+            list.add(new DataModel(String.valueOf(i)));
+        }
+        return list;
     }
 
     @Override
