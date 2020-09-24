@@ -23,24 +23,29 @@ public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
     }
 
     @Override
-    public V put(K key, V value)
+    public synchronized V put(K key, V value)
     {
         if (key == null || value == null)
             return null;
 
         V resultValue = null;
+        V putResult = null;
 
         final K oldKey = mMapReverse.put(value, key);
         if (oldKey != null)
         {
             resultValue = mMap.remove(oldKey);
-            mMap.put(key, value);
+            putResult = mMap.put(key, value);
+            if (putResult != null)
+                resultValue = putResult;
         } else
         {
             resultValue = mMap.put(key, value);
-            if (resultValue != null)
-                mMapReverse.remove(resultValue);
+            putResult = resultValue;
         }
+
+        if (putResult != null)
+            mMapReverse.remove(putResult);
 
         return resultValue;
     }
