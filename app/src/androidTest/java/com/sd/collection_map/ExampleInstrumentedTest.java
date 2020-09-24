@@ -53,5 +53,14 @@ public class ExampleInstrumentedTest
         assertEquals("3", map.get("2"));
         assertEquals(null, map.getKeyByValue("1"));
         assertEquals("2", map.getKeyByValue("3"));
+
+        map = new FUniqueMap<>();
+        assertEquals(null, map.put("2", "1"));
+        assertEquals(null, map.put("3", "2"));
+        assertEquals("2", map.put("3", "1"));
+        assertEquals(1, map.size());
+        assertEquals("1", map.get("3"));
+        assertEquals("3", map.getKeyByValue("1"));
+        assertEquals(null, map.getKeyByValue("2"));
     }
 }
