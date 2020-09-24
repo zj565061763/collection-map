@@ -6,8 +6,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.sd.lib.collection.map.impl.FUniqueMap;
-import com.sd.lib.collection.map.impl.FWeakKeyUniqueMap;
-import com.sd.lib.collection.map.impl.FWeakValueUniqueMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,50 +29,29 @@ public class ExampleInstrumentedTest
     }
 
     @Test
-    public void test_FUniqueMap()
+    public void test_uniqueMap()
     {
-        final FUniqueMap<Object, Object> map = new FUniqueMap<>();
-        assertEquals(null, map.put("a", "1"));
-        assertEquals(null, map.put("b", "1"));
-        assertEquals(null, map.put("c", "1"));
-        assertEquals("1", map.put("c", "1"));
-
+        FUniqueMap<Object, Object> map = new FUniqueMap<>();
+        assertEquals(null, map.put("2", "1"));
+        assertEquals("1", map.put("3", "1"));
         assertEquals(1, map.size());
-        assertEquals("1", map.get("c"));
-        assertEquals("c", map.getKeyByValue("1"));
-        assertEquals("c", map.removeByValue("1"));
-        assertEquals(0, map.size());
-    }
+        assertEquals(null, map.get("2"));
+        assertEquals("1", map.get("3"));
+        assertEquals("3", map.getKeyByValue("1"));
 
-    @Test
-    public void test_FWeakKeyUniqueMap()
-    {
-        final FWeakKeyUniqueMap<Object, Object> map = new FWeakKeyUniqueMap<>();
-        assertEquals(null, map.put("a", "1"));
-        assertEquals(null, map.put("b", "1"));
-        assertEquals(null, map.put("c", "1"));
-        assertEquals("1", map.put("c", "1"));
-
+        map = new FUniqueMap<>();
+        assertEquals(null, map.put("2", "1"));
+        assertEquals("1", map.put("2", "1"));
         assertEquals(1, map.size());
-        assertEquals("1", map.get("c"));
-        assertEquals("c", map.getKeyByValue("1"));
-        assertEquals("c", map.removeByValue("1"));
-        assertEquals(0, map.size());
-    }
+        assertEquals("1", map.get("2"));
+        assertEquals("2", map.getKeyByValue("1"));
 
-    @Test
-    public void test_FWeakValueUniqueMap()
-    {
-        final FWeakValueUniqueMap<Object, Object> map = new FWeakValueUniqueMap<>();
-        assertEquals(null, map.put("a", "1"));
-        assertEquals(null, map.put("b", "1"));
-        assertEquals(null, map.put("c", "1"));
-        assertEquals("1", map.put("c", "1"));
-
+        map = new FUniqueMap<>();
+        assertEquals(null, map.put("2", "1"));
+        assertEquals("1", map.put("2", "3"));
         assertEquals(1, map.size());
-        assertEquals("1", map.get("c"));
-        assertEquals("c", map.getKeyByValue("1"));
-        assertEquals("c", map.removeByValue("1"));
-        assertEquals(0, map.size());
+        assertEquals("3", map.get("2"));
+        assertEquals(null, map.getKeyByValue("1"));
+        assertEquals("2", map.getKeyByValue("3"));
     }
 }
