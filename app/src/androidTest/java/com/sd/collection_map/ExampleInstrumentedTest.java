@@ -5,6 +5,7 @@ import android.content.Context;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.sd.lib.collection.map.IUniqueMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
 
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class ExampleInstrumentedTest
     @Test
     public void test_uniqueMap()
     {
-        FUniqueMap<Object, Object> map = null;
+        IUniqueMap<Object, Object> map = null;
 
         map = new FUniqueMap<>();
         assertEquals(null, map.put("2", "1"));
