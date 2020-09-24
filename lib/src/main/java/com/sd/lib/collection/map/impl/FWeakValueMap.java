@@ -8,7 +8,6 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * value是弱引用的Map
@@ -18,8 +17,10 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class FWeakValueMap<K, V> implements IMap<K, V>
 {
-    private final Map<K, WeakReference<V>> mMap = new ConcurrentHashMap<>();
-    private final ReferenceQueue<V> mReferenceQueue = new ReferenceQueue<>();
+    private final Map<K, WeakReference<V>> mMap = new HashMap<>();
+    private final ReferenceQueue<V> mQueue = new ReferenceQueue<>();
+
+    private final Map<WeakReference<V>, K> mMapReference = new HashMap<>();
 
     @Override
     public V put(K key, V value)
@@ -27,11 +28,18 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         if (key == null || value == null)
             return null;
 
-        final WeakReference<V> preValue = mMap.put(key, new WeakReference<V>(value, mReferenceQueue));
-        if (preValue == null)
-            return null;
+        final WeakReference<V> refValue = new WeakReference<V>(value, mQueue);
+        final WeakReference<V> oldValue = mMap.put(key, refValue);
+        mMapReference.put(refValue, key);
 
-        return preValue.get();
+        if (oldValue != null)
+        {
+            mMapReference.remove(oldValue);
+            return oldValue.get();
+        } else
+        {
+            return null;
+        }
     }
 
     @Override
@@ -40,11 +48,15 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         if (key == null)
             return null;
 
-        final WeakReference<V> preValue = mMap.remove(key);
-        if (preValue == null)
+        final WeakReference<V> refValue = mMap.remove(key);
+        if (refValue != null)
+        {
+            mMapReference.remove(refValue);
+            return refValue.get();
+        } else
+        {
             return null;
-
-        return preValue.get();
+        }
     }
 
     @Override
@@ -62,6 +74,7 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         {
             // 值已经被回收，移除键值对
             mMap.remove(key);
+            mMapReference.remove(refValue);
             return null;
         }
 
@@ -105,6 +118,7 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
             } else
             {
                 it.remove();
+                mMapReference.remove(item.getValue());
             }
         }
         return map;
@@ -114,20 +128,13 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
     {
         while (true)
         {
-            final Reference<? extends V> reference = mReferenceQueue.poll();
+            final Reference<? extends V> reference = mQueue.poll();
             if (reference == null)
                 break;
 
-            final Iterator<Map.Entry<K, WeakReference<V>>> it = mMap.entrySet().iterator();
-            while (it.hasNext())
-            {
-                final Map.Entry<K, WeakReference<V>> item = it.next();
-                if (reference.equals(item.getValue()))
-                {
-                    it.remove();
-                    break;
-                }
-            }
+            final K key = mMapReference.remove(reference);
+            if (key != null)
+                mMap.remove(key);
         }
     }
 }

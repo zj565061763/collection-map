@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.collection_map.databinding.ActivityMainBinding;
 import com.sd.lib.collection.map.IMap;
+import com.sd.lib.collection.map.impl.FHashMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakKeyMap;
 import com.sd.lib.collection.map.impl.FWeakKeyUniqueMap;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                printTime(new FWeakValueUniqueMap<Object, Object>());
+                printTime(new FWeakValueMap<Object, Object>());
             }
         });
     }
