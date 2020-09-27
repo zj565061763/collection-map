@@ -23,7 +23,7 @@ public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
     }
 
     @Override
-    public synchronized V put(K key, V value)
+    public V put(K key, V value)
     {
         if (key == null || value == null)
             return null;
