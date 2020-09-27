@@ -56,11 +56,12 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
 
     private void printMapWeak()
     {
-        Log.i(TAG, "printMapWeak mapSize:" + mMapWeak.size());
+        Log.i(TAG, "printMapWeak mapSize:" + mMapWeak.size() + "\r\n map:" + mMapWeak);
     }
 
     private void printMapUnique()
     {
-        Log.i(TAG, "printMapUnique mapSize:" + mMapUnique.toMap().size());
+        final Map<Object, Object> map = mMapUnique.toMap();
+        Log.i(TAG, "printMapUnique mapSize:" + map.size() + "\r\n map:" + map);
     }
 }
