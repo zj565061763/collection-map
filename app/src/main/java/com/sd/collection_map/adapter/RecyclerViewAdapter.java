@@ -38,7 +38,7 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
         binding.btn.setText(model.mObject.toString());
 
         mMapWeak.put(holder.itemView, position);
-        mMapUnique.put(holder.itemView, position);
+        mMapUnique.put(position, holder.itemView);
 
         HANDLER.removeCallbacks(mRunnable);
         HANDLER.postDelayed(mRunnable, 1 * 1000);
