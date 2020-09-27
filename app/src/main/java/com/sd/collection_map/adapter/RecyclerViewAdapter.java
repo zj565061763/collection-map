@@ -23,7 +23,7 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
     private final Map<View, Integer> mMapWeak = new WeakHashMap<>();
-    private final IUniqueMap<View, Integer> mMapUnique = new FUniqueMap<>();
+    private final IUniqueMap<Object, Object> mMapUnique = new FUniqueMap<>();
 
     @Override
     public int getLayoutId(ViewGroup parent, int viewType)
