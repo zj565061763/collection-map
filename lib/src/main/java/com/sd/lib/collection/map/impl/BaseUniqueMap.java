@@ -7,9 +7,6 @@ import java.util.Map;
 
 /**
  * key和value都是唯一的Map
- *
- * @param <K>
- * @param <V>
  */
 public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
 {

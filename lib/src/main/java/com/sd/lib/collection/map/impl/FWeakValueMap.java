@@ -11,9 +11,6 @@ import java.util.Map;
 
 /**
  * value是弱引用的Map
- *
- * @param <K>
- * @param <V>
  */
 public class FWeakValueMap<K, V> implements IMap<K, V>
 {

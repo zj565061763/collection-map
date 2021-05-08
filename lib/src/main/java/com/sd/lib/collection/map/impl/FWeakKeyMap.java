@@ -8,9 +8,6 @@ import java.util.WeakHashMap;
 
 /**
  * key是弱引用的Map
- *
- * @param <K>
- * @param <V>
  */
 public class FWeakKeyMap<K, V> implements IMap<K, V>
 {
