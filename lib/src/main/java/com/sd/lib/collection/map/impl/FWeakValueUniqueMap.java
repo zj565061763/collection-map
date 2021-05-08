@@ -7,6 +7,6 @@ public class FWeakValueUniqueMap<K, V> extends BaseUniqueMap<K, V>
 {
     public FWeakValueUniqueMap()
     {
-        super(new FWeakValueMap<K, V>(), new FWeakKeyMap<V, K>());
+        super(new FWeakValueMap<>(), new FWeakKeyMap<>());
     }
 }
