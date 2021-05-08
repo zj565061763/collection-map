@@ -27,9 +27,9 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
 
         releaseReference();
 
-        final WeakReference<V> refValue = new WeakReference<V>(value, mQueue);
-        final WeakReference<V> oldValue = mMap.put(key, refValue);
-        mMapReference.put(refValue, key);
+        final WeakReference<V> newValue = new WeakReference(value, mQueue);
+        final WeakReference<V> oldValue = mMap.put(key, newValue);
+        mMapReference.put(newValue, key);
 
         if (oldValue != null)
         {
