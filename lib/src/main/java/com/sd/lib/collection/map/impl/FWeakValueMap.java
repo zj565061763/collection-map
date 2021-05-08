@@ -114,14 +114,16 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         while (it.hasNext())
         {
             final Map.Entry<K, WeakReference<V>> item = it.next();
-            final V value = item.getValue().get();
+            final WeakReference<V> refValue = item.getValue();
+
+            final V value = refValue.get();
             if (value != null)
             {
                 map.put(item.getKey(), value);
             } else
             {
                 it.remove();
-                mMapReference.remove(item.getValue());
+                mMapReference.remove(refValue);
             }
         }
         return map;
