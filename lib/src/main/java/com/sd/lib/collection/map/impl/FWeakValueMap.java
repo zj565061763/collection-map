@@ -14,9 +14,9 @@ import java.util.Map;
  */
 public class FWeakValueMap<K, V> implements IMap<K, V>
 {
-    private final Map<K, WeakReference<V>> mMap = new HashMap<>();
     private final ReferenceQueue<V> mQueue = new ReferenceQueue<>();
 
+    private final Map<K, WeakReference<V>> mMap = new HashMap<>();
     private final Map<WeakReference<V>, K> mMapReference = new HashMap<>();
 
     @Override
