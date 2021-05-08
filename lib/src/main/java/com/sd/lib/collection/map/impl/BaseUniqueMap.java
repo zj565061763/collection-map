@@ -26,23 +26,17 @@ public class BaseUniqueMap<K, V> implements IUniqueMap<K, V>
             return null;
 
         V resultValue = null;
-        V putResult = null;
 
         final K oldKey = mMapReverse.put(value, key);
         if (oldKey != null)
-        {
             resultValue = mMap.remove(oldKey);
-            putResult = mMap.put(key, value);
-            if (putResult != null)
-                resultValue = putResult;
-        } else
-        {
-            resultValue = mMap.put(key, value);
-            putResult = resultValue;
-        }
 
-        if (putResult != null)
-            mMapReverse.remove(putResult);
+        final V oldValue = mMap.put(key, value);
+        if (oldValue != null)
+        {
+            mMapReverse.remove(oldValue);
+            resultValue = oldValue;
+        }
 
         return resultValue;
     }
