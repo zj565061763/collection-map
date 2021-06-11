@@ -1,4 +1,4 @@
-package com.sd.collection_map.activity;
+package com.sd.demo.collection_map.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sd.collection_map.databinding.ActivityMainBinding;
+import com.sd.demo.collection_map.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityMainBinding mBinding;

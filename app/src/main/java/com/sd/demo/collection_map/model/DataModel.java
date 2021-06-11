@@ -1,4 +1,4 @@
-package com.sd.collection_map.model;
+package com.sd.demo.collection_map.model;
 
 import java.util.ArrayList;
 import java.util.List;

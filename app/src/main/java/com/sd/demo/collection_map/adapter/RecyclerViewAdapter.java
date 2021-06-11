@@ -1,4 +1,4 @@
-package com.sd.collection_map.adapter;
+package com.sd.demo.collection_map.adapter;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -6,9 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.sd.collection_map.R;
-import com.sd.collection_map.databinding.ItemRecyclerViewBinding;
-import com.sd.collection_map.model.DataModel;
+import com.sd.demo.collection_map.R;
+import com.sd.demo.collection_map.databinding.ItemRecyclerViewBinding;
+import com.sd.demo.collection_map.model.DataModel;
 import com.sd.lib.adapter.FSimpleRecyclerAdapter;
 import com.sd.lib.adapter.viewholder.FRecyclerViewHolder;
 import com.sd.lib.collection.map.IUniqueMap;

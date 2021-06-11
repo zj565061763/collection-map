@@ -1,4 +1,4 @@
-package com.sd.collection_map;
+package com.sd.demo.collection_map;
 
 import android.content.Context;
 
@@ -24,7 +24,7 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.sd.collection_map", appContext.getPackageName());
+        assertEquals("com.sd.demo.collection_map", appContext.getPackageName());
     }
 
     @Test

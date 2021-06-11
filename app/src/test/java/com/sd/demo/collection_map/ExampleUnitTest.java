@@ -1,4 +1,4 @@
-package com.sd.collection_map;
+package com.sd.demo.collection_map;
 
 import org.junit.Test;
 

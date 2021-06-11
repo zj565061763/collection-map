@@ -1,4 +1,4 @@
-package com.sd.collection_map.activity;
+package com.sd.demo.collection_map.activity;
 
 import android.os.Bundle;
 
@@ -6,9 +6,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.sd.collection_map.adapter.RecyclerViewAdapter;
-import com.sd.collection_map.databinding.ActivityRecyclerViewBinding;
-import com.sd.collection_map.model.DataModel;
+import com.sd.demo.collection_map.adapter.RecyclerViewAdapter;
+import com.sd.demo.collection_map.databinding.ActivityRecyclerViewBinding;
+import com.sd.demo.collection_map.model.DataModel;
 
 public class RecyclerViewActivity extends AppCompatActivity {
     private ActivityRecyclerViewBinding mBinding;

@@ -1,4 +1,4 @@
-package com.sd.collection_map.activity;
+package com.sd.demo.collection_map.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -6,7 +6,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sd.collection_map.databinding.ActivityMapBinding;
+import com.sd.demo.collection_map.databinding.ActivityMapBinding;
 import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.impl.FWeakKeyMap;
 import com.sd.lib.collection.map.impl.FWeakKeyUniqueMap;
