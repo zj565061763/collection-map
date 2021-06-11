@@ -13,8 +13,7 @@ import com.sd.lib.collection.map.impl.FWeakKeyUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakValueMap;
 import com.sd.lib.collection.map.impl.FWeakValueUniqueMap;
 
-public class MapActivity extends AppCompatActivity
-{
+public class MapActivity extends AppCompatActivity {
     public static final String TAG = MapActivity.class.getSimpleName();
 
     private ActivityMapBinding mBinding;
@@ -26,8 +25,7 @@ public class MapActivity extends AppCompatActivity
     private final FWeakValueUniqueMap<Object, Object> mWeakValueUniqueMap = new FWeakValueUniqueMap<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityMapBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
@@ -43,36 +41,30 @@ public class MapActivity extends AppCompatActivity
         mWeakValueUniqueMap.put(this, new Object());
         mWeakValueUniqueMap.put(new Object(), this);
 
-        mBinding.btnTime.setOnClickListener(new View.OnClickListener()
-        {
+        mBinding.btnTime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 printTime(new FWeakValueMap<>());
             }
         });
     }
 
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         printSize();
     }
 
-    private void printSize()
-    {
+    private void printSize() {
         Log.i(TAG, "FWeakKeyMap size:" + mWeakKeyMap.size());
         Log.i(TAG, "FWeakValueMap size:" + mWeakValueMap.size());
         Log.i(TAG, "FWeakKeyUniqueMap size:" + mWeakKeyUniqueMap.size());
         Log.i(TAG, "FWeakValueUniqueMap size:" + mWeakValueUniqueMap.size());
     }
 
-    private void printTime(IMap<Object, Object> map)
-    {
+    private void printTime(IMap<Object, Object> map) {
         final long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 100000; i++)
-        {
+        for (int i = 0; i < 100000; i++) {
             map.put(i, i + 1);
         }
         Log.i(TAG, "time:" + (System.currentTimeMillis() - startTime));

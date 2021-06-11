@@ -17,8 +17,7 @@ import com.sd.lib.collection.map.impl.FUniqueMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
-{
+public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel> {
     private static final String TAG = RecyclerViewAdapter.class.getSimpleName();
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
@@ -26,14 +25,12 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
     private final IUniqueMap<Object, Object> mMapUnique = new FUniqueMap<>();
 
     @Override
-    public int getLayoutId(ViewGroup parent, int viewType)
-    {
+    public int getLayoutId(ViewGroup parent, int viewType) {
         return R.layout.item_recycler_view;
     }
 
     @Override
-    public void onBindData(FRecyclerViewHolder<DataModel> holder, int position, DataModel model)
-    {
+    public void onBindData(FRecyclerViewHolder<DataModel> holder, int position, DataModel model) {
         final ItemRecyclerViewBinding binding = ItemRecyclerViewBinding.bind(holder.itemView);
         binding.btn.setText(model.mObject.toString());
 
@@ -44,23 +41,19 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel>
         HANDLER.postDelayed(mRunnable, 1 * 1000);
     }
 
-    private final Runnable mRunnable = new Runnable()
-    {
+    private final Runnable mRunnable = new Runnable() {
         @Override
-        public void run()
-        {
+        public void run() {
             printMapWeak();
             printMapUnique();
         }
     };
 
-    private void printMapWeak()
-    {
+    private void printMapWeak() {
         Log.i(TAG, "printMapWeak mapSize:" + mMapWeak.size() + "\r\n map:" + mMapWeak);
     }
 
-    private void printMapUnique()
-    {
+    private void printMapUnique() {
         final Map<Object, Object> map = mMapUnique.toMap();
         Log.i(TAG, "printMapUnique mapSize:" + map.size() + "\r\n map:" + map);
     }

@@ -8,13 +8,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.collection_map.databinding.ActivityMainBinding;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityMainBinding mBinding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());
@@ -24,13 +22,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onClick(View view)
-    {
-        if (view == mBinding.btnMap)
-        {
+    public void onClick(View view) {
+        if (view == mBinding.btnMap) {
             startActivity(new Intent(this, MapActivity.class));
-        } else if (view == mBinding.btnRecyclerView)
-        {
+        } else if (view == mBinding.btnRecyclerView) {
             startActivity(new Intent(this, RecyclerViewActivity.class));
         }
     }

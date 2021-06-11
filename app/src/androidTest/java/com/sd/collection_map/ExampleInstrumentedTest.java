@@ -19,19 +19,16 @@ import static org.junit.Assert.assertEquals;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest
-{
+public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext()
-    {
+    public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.sd.collection_map", appContext.getPackageName());
     }
 
     @Test
-    public void test_uniqueMap()
-    {
+    public void test_uniqueMap() {
         IUniqueMap<Object, Object> map = null;
 
         map = new FUniqueMap<>();

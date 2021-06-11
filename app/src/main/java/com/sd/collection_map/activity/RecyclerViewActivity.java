@@ -10,14 +10,12 @@ import com.sd.collection_map.adapter.RecyclerViewAdapter;
 import com.sd.collection_map.databinding.ActivityRecyclerViewBinding;
 import com.sd.collection_map.model.DataModel;
 
-public class RecyclerViewActivity extends AppCompatActivity
-{
+public class RecyclerViewActivity extends AppCompatActivity {
     private ActivityRecyclerViewBinding mBinding;
     private final RecyclerViewAdapter mAdapter = new RecyclerViewAdapter();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = ActivityRecyclerViewBinding.inflate(getLayoutInflater());
         setContentView(mBinding.getRoot());

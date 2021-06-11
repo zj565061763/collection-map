@@ -12,18 +12,17 @@ import java.util.Map;
 /**
  * value是弱引用的Map
  */
-public class FWeakValueMap<K, V> implements IMap<K, V>
-{
+public class FWeakValueMap<K, V> implements IMap<K, V> {
     private final ReferenceQueue<V> mQueue = new ReferenceQueue<>();
 
     private final Map<K, WeakReference<V>> mMap = new HashMap<>();
     private final Map<WeakReference<V>, K> mMapReference = new HashMap<>();
 
     @Override
-    public V put(K key, V value)
-    {
-        if (key == null || value == null)
+    public V put(K key, V value) {
+        if (key == null || value == null) {
             return null;
+        }
 
         releaseReference();
 
@@ -31,50 +30,46 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         final WeakReference<V> oldValue = mMap.put(key, newValue);
         mMapReference.put(newValue, key);
 
-        if (oldValue != null)
-        {
+        if (oldValue != null) {
             mMapReference.remove(oldValue);
             return oldValue.get();
-        } else
-        {
+        } else {
             return null;
         }
     }
 
     @Override
-    public V remove(Object key)
-    {
-        if (key == null)
+    public V remove(Object key) {
+        if (key == null) {
             return null;
+        }
 
         releaseReference();
 
         final WeakReference<V> refValue = mMap.remove(key);
-        if (refValue != null)
-        {
+        if (refValue != null) {
             mMapReference.remove(refValue);
             return refValue.get();
-        } else
-        {
+        } else {
             return null;
         }
     }
 
     @Override
-    public V get(Object key)
-    {
-        if (key == null)
+    public V get(Object key) {
+        if (key == null) {
             return null;
+        }
 
         releaseReference();
 
         final WeakReference<V> refValue = mMap.get(key);
-        if (refValue == null)
+        if (refValue == null) {
             return null;
+        }
 
         final V value = refValue.get();
-        if (value == null)
-        {
+        if (value == null) {
             // 值已经被回收，移除键值对
             mMap.remove(key);
             mMapReference.remove(refValue);
@@ -84,44 +79,37 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
     }
 
     @Override
-    public boolean containsKey(Object key)
-    {
+    public boolean containsKey(Object key) {
         return get(key) != null;
     }
 
     @Override
-    public int size()
-    {
+    public int size() {
         releaseReference();
         return mMap.size();
     }
 
     @Override
-    public void clear()
-    {
+    public void clear() {
         mMap.clear();
         mMapReference.clear();
         releaseReference();
     }
 
     @Override
-    public Map<K, V> toMap()
-    {
+    public Map<K, V> toMap() {
         releaseReference();
         final Map<K, V> map = new HashMap<>();
 
         final Iterator<Map.Entry<K, WeakReference<V>>> it = mMap.entrySet().iterator();
-        while (it.hasNext())
-        {
+        while (it.hasNext()) {
             final Map.Entry<K, WeakReference<V>> item = it.next();
             final WeakReference<V> refValue = item.getValue();
 
             final V value = refValue.get();
-            if (value != null)
-            {
+            if (value != null) {
                 map.put(item.getKey(), value);
-            } else
-            {
+            } else {
                 it.remove();
                 mMapReference.remove(refValue);
             }
@@ -129,24 +117,23 @@ public class FWeakValueMap<K, V> implements IMap<K, V>
         return map;
     }
 
-    private void releaseReference()
-    {
-        while (true)
-        {
+    private void releaseReference() {
+        while (true) {
             final Reference<? extends V> reference = mQueue.poll();
-            if (reference == null)
+            if (reference == null) {
                 break;
+            }
 
             final K key = mMapReference.remove(reference);
-            if (key == null)
-            {
+            if (key == null) {
                 // 该引用已经被移除
                 continue;
             }
 
             final Reference<? extends V> oldReference = mMap.remove(key);
-            if (reference != oldReference)
+            if (reference != oldReference) {
                 throw new RuntimeException("reference != oldReference");
+            }
         }
     }
 }
