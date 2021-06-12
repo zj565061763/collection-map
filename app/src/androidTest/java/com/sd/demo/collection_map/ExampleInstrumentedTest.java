@@ -50,6 +50,20 @@ public class ExampleInstrumentedTest {
         assertEquals("2", map.get("3"));
         assertEquals(true, map.containsKey("2"));
         assertEquals(true, map.containsKey("3"));
+
+        assertEquals("2", map.remove("3"));
+        assertEquals(1, map.size());
+        assertEquals("1", map.get("2"));
+        assertEquals(null, map.get("3"));
+        assertEquals(true, map.containsKey("2"));
+        assertEquals(false, map.containsKey("3"));
+
+        map.clear();
+        assertEquals(0, map.size());
+        assertEquals(null, map.get("2"));
+        assertEquals(null, map.get("3"));
+        assertEquals(false, map.containsKey("2"));
+        assertEquals(false, map.containsKey("3"));
     }
 
     @Test
