@@ -9,6 +9,8 @@ import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.IUniqueMap;
 import com.sd.lib.collection.map.impl.FHashMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
+import com.sd.lib.collection.map.impl.FWeakKeyMap;
+import com.sd.lib.collection.map.impl.FWeakValueMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,8 +32,10 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void test_map() {
-        testMap(new FHashMap<>());
+    public void test_NormalMap() {
+        testNormalMap(new FHashMap<>());
+        testNormalMap(new FWeakKeyMap<>());
+        testNormalMap(new FWeakValueMap<>());
     }
 
     @Test
@@ -71,7 +75,7 @@ public class ExampleInstrumentedTest {
         assertEquals(null, map.getKeyByValue("2"));
     }
 
-    private void testMap(IMap<Object, Object> map) {
+    private void testNormalMap(IMap<Object, Object> map) {
         assertEquals(null, map.put("2", "1"));
         assertEquals(1, map.size());
         assertEquals("1", map.get("2"));
