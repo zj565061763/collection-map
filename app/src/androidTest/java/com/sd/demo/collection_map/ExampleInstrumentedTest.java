@@ -1,9 +1,6 @@
 package com.sd.demo.collection_map;
 
-import android.content.Context;
-
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.IUniqueMap;
@@ -25,17 +22,13 @@ import static org.junit.Assert.assertEquals;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.sd.demo.collection_map", appContext.getPackageName());
-    }
-
-    @Test
-    public void test_NormalMap() {
+    public void test_Map() {
         testNormalMap(new FHashMap<>());
         testNormalMap(new FWeakKeyMap<>());
         testNormalMap(new FWeakValueMap<>());
+
+        testWeakMap(new FWeakKeyMap<>());
+        testWeakMap(new FWeakValueMap<>());
     }
 
     @Test
@@ -108,5 +101,9 @@ public class ExampleInstrumentedTest {
         assertEquals(null, map.get("3"));
         assertEquals(false, map.containsKey("2"));
         assertEquals(false, map.containsKey("3"));
+    }
+
+    private void testWeakMap(IMap<Object, Object> map) {
+
     }
 }
