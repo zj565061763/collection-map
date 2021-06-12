@@ -31,39 +31,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void test_map() {
-        final IMap<Object, Object> map = new FHashMap<>();
-        assertEquals(null, map.put("2", "1"));
-        assertEquals(1, map.size());
-        assertEquals("1", map.get("2"));
-        assertEquals(true, map.containsKey("2"));
-
-        assertEquals(null, map.put("3", "1"));
-        assertEquals(2, map.size());
-        assertEquals("1", map.get("2"));
-        assertEquals("1", map.get("3"));
-        assertEquals(true, map.containsKey("2"));
-        assertEquals(true, map.containsKey("3"));
-
-        assertEquals("1", map.put("3", "2"));
-        assertEquals(2, map.size());
-        assertEquals("1", map.get("2"));
-        assertEquals("2", map.get("3"));
-        assertEquals(true, map.containsKey("2"));
-        assertEquals(true, map.containsKey("3"));
-
-        assertEquals("2", map.remove("3"));
-        assertEquals(1, map.size());
-        assertEquals("1", map.get("2"));
-        assertEquals(null, map.get("3"));
-        assertEquals(true, map.containsKey("2"));
-        assertEquals(false, map.containsKey("3"));
-
-        map.clear();
-        assertEquals(0, map.size());
-        assertEquals(null, map.get("2"));
-        assertEquals(null, map.get("3"));
-        assertEquals(false, map.containsKey("2"));
-        assertEquals(false, map.containsKey("3"));
+        testMap(new FHashMap<>());
     }
 
     @Test
@@ -101,5 +69,40 @@ public class ExampleInstrumentedTest {
         assertEquals("1", map.get("3"));
         assertEquals("3", map.getKeyByValue("1"));
         assertEquals(null, map.getKeyByValue("2"));
+    }
+
+    private void testMap(IMap<Object, Object> map) {
+        assertEquals(null, map.put("2", "1"));
+        assertEquals(1, map.size());
+        assertEquals("1", map.get("2"));
+        assertEquals(true, map.containsKey("2"));
+
+        assertEquals(null, map.put("3", "1"));
+        assertEquals(2, map.size());
+        assertEquals("1", map.get("2"));
+        assertEquals("1", map.get("3"));
+        assertEquals(true, map.containsKey("2"));
+        assertEquals(true, map.containsKey("3"));
+
+        assertEquals("1", map.put("3", "2"));
+        assertEquals(2, map.size());
+        assertEquals("1", map.get("2"));
+        assertEquals("2", map.get("3"));
+        assertEquals(true, map.containsKey("2"));
+        assertEquals(true, map.containsKey("3"));
+
+        assertEquals("2", map.remove("3"));
+        assertEquals(1, map.size());
+        assertEquals("1", map.get("2"));
+        assertEquals(null, map.get("3"));
+        assertEquals(true, map.containsKey("2"));
+        assertEquals(false, map.containsKey("3"));
+
+        map.clear();
+        assertEquals(0, map.size());
+        assertEquals(null, map.get("2"));
+        assertEquals(null, map.get("3"));
+        assertEquals(false, map.containsKey("2"));
+        assertEquals(false, map.containsKey("3"));
     }
 }
