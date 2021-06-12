@@ -21,14 +21,22 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+    private static final String ONE = "1";
+
     @Test
     public void test_Map() {
         testNormalMap(new FHashMap<>());
         testNormalMap(new FWeakKeyMap<>());
         testNormalMap(new FWeakValueMap<>());
+    }
 
-        testWeakMap(new FWeakKeyMap<>());
-        testWeakMap(new FWeakValueMap<>());
+    @Test
+    public void test_WeakKeyMap() {
+        testWeakKeyMap(new FWeakKeyMap<>());
+    }
+
+    @Test
+    public void test_WeakValueMap() {
     }
 
     @Test
@@ -103,7 +111,13 @@ public class ExampleInstrumentedTest {
         assertEquals(false, map.containsKey("3"));
     }
 
-    private void testWeakMap(IMap<Object, Object> map) {
-
+    private void testWeakKeyMap(IMap<Object, Object> map) {
+        assertEquals(null, map.put(ONE, "1"));
+        assertEquals(null, map.put("2", "2"));
+        assertEquals(2, map.size());
+        assertEquals("1", map.get(ONE));
+        assertEquals("2", map.get("2"));
+        assertEquals(true, map.containsKey(ONE));
+        assertEquals(true, map.containsKey("2"));
     }
 }
