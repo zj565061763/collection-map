@@ -104,7 +104,7 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
     public static final class WeakRef<T> extends WeakReference<T> {
         private final Object mKey;
 
-        public WeakRef(Object key, T referent, ReferenceQueue<? super T> q) {
+        private WeakRef(Object key, T referent, ReferenceQueue<? super T> q) {
             super(referent, q);
             mKey = key;
         }
