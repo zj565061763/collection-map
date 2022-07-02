@@ -74,8 +74,7 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
     public void foreach(ForeachCallback<? super K, ? super V> callback) {
         releaseReference();
         for (Map.Entry<KeyRef<K>, V> item : mMap.entrySet()) {
-            final KeyRef<K> ref = item.getKey();
-            final K key = ref.get();
+            final K key = item.getKey().get();
             if (key != null) {
                 if (callback.onItem(key, item.getValue())) break;
             }
