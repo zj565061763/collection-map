@@ -14,13 +14,13 @@ import java.util.Objects;
  */
 public class FWeakKeyMap<K, V> implements IMap<K, V> {
     private final ReferenceQueue<K> mQueue = new ReferenceQueue<>();
-    private final Map<WeakRef<K>, V> mMap;
+    private final Map<KeyRef<K>, V> mMap;
 
     public FWeakKeyMap() {
         this(new HashMap<>());
     }
 
-    public FWeakKeyMap(Map<WeakRef<K>, V> map) {
+    public FWeakKeyMap(Map<KeyRef<K>, V> map) {
         mMap = map;
     }
 
@@ -30,7 +30,7 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final WeakRef<K> ref = new WeakRef(key, mQueue);
+        final KeyRef<K> ref = new KeyRef(key, mQueue);
         return mMap.put(ref, value);
     }
 
@@ -40,7 +40,7 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final WeakRef<K> ref = new WeakRef(key, mQueue);
+        final KeyRef<K> ref = new KeyRef(key, mQueue);
         return mMap.remove(ref);
     }
 
@@ -50,7 +50,7 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final WeakRef<K> ref = new WeakRef(key, mQueue);
+        final KeyRef<K> ref = new KeyRef(key, mQueue);
         return mMap.get(ref);
     }
 
@@ -68,8 +68,8 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
     @Override
     public void foreach(ForeachCallback<? super K, ? super V> callback) {
         releaseReference();
-        for (Map.Entry<WeakRef<K>, V> item : mMap.entrySet()) {
-            final WeakRef<K> ref = item.getKey();
+        for (Map.Entry<KeyRef<K>, V> item : mMap.entrySet()) {
+            final KeyRef<K> ref = item.getKey();
             final K key = ref.get();
             if (key != null) {
                 if (callback.onItem(key, item.getValue())) break;
@@ -89,8 +89,8 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
             map = new HashMap<>();
         }
 
-        for (Map.Entry<WeakRef<K>, V> item : mMap.entrySet()) {
-            final WeakRef<K> ref = item.getKey();
+        for (Map.Entry<KeyRef<K>, V> item : mMap.entrySet()) {
+            final KeyRef<K> ref = item.getKey();
             final K key = ref.get();
             if (key != null) {
                 map.put(key, item.getValue());
@@ -108,10 +108,10 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
         }
     }
 
-    public static final class WeakRef<T> extends WeakReference<T> {
+    public static final class KeyRef<T> extends WeakReference<T> {
         private final int mHashCode;
 
-        private WeakRef(T referent, ReferenceQueue<? super T> q) {
+        private KeyRef(T referent, ReferenceQueue<? super T> q) {
             super(referent, q);
             mHashCode = referent.hashCode();
         }
@@ -125,7 +125,7 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
         public boolean equals(Object obj) {
             if (obj == this) return true;
             if (obj == null || obj.getClass() != getClass()) return false;
-            final WeakRef other = (WeakRef) obj;
+            final KeyRef other = (KeyRef) obj;
             return Objects.equals(get(), other.get());
         }
     }
