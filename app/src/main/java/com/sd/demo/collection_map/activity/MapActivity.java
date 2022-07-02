@@ -42,6 +42,12 @@ public class MapActivity extends AppCompatActivity {
         printSize();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.gc();
+    }
+
     private void printSize() {
         Log.i(TAG, "FWeakKeyMap size:" + mWeakKeyMap.size());
         Log.i(TAG, "FWeakValueMap size:" + mWeakValueMap.size());
