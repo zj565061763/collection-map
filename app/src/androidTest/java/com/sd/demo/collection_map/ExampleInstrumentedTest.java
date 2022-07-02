@@ -8,6 +8,7 @@ import com.sd.lib.collection.map.IUniqueMap;
 import com.sd.lib.collection.map.impl.FMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakKeyMap;
+import com.sd.lib.collection.map.impl.FWeakMap;
 import com.sd.lib.collection.map.impl.FWeakValueMap;
 
 import org.junit.Test;
@@ -37,6 +38,11 @@ public class ExampleInstrumentedTest {
     @Test
     public void testWeakValueMap() {
         TestUtils.testWeak(new FWeakValueMap<>());
+    }
+
+    @Test
+    public void testWeakMap() {
+        TestUtils.testWeak(new FWeakMap<>());
     }
 
     @Test
