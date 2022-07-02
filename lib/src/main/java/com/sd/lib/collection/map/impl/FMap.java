@@ -58,7 +58,11 @@ public class FMap<K, V> implements IMap<K, V> {
     }
 
     @Override
-    public Map<K, V> toMap() {
-        return new HashMap<>(mMap);
+    public Map<K, V> toMap(Map<K, V> map) {
+        if (map == null) {
+            map = new HashMap<>();
+        }
+        map.putAll(mMap);
+        return map;
     }
 }

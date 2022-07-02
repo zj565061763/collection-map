@@ -54,7 +54,7 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel> {
     }
 
     private void printMapUnique() {
-        final Map<Object, Object> map = mMapUnique.toMap();
+        final Map<Object, Object> map = mMapUnique.toMap(null);
         Log.i(TAG, "printMapUnique mapSize:" + map.size() + "\r\n map:" + map);
     }
 }

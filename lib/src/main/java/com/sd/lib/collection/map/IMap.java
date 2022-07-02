@@ -17,7 +17,7 @@ public interface IMap<K, V> {
 
     void foreach(ForeachCallback<? super K, ? super V> callback);
 
-    Map<K, V> toMap();
+    Map<K, V> toMap(Map<K, V> map);
 
     interface ForeachCallback<K, V> {
         boolean onItem(K key, V value);

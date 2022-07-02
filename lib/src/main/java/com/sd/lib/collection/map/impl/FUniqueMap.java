@@ -84,8 +84,8 @@ public class FUniqueMap<K, V> implements IUniqueMap<K, V> {
     }
 
     @Override
-    public Map<K, V> toMap() {
-        return mMap.toMap();
+    public Map<K, V> toMap(Map<K, V> map) {
+        return mMap.toMap(map);
     }
 
     @Override

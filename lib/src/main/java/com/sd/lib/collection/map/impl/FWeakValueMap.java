@@ -82,9 +82,12 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
     }
 
     @Override
-    public Map<K, V> toMap() {
+    public Map<K, V> toMap(Map<K, V> map) {
         releaseReference();
-        final Map<K, V> map = new HashMap<>();
+        if (map == null) {
+            map = new HashMap<>();
+        }
+
         for (Map.Entry<K, WeakRef<V>> item : mMap.entrySet()) {
             final WeakRef<V> ref = item.getValue();
             final V value = ref.get();
