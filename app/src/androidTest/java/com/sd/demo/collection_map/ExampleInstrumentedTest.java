@@ -35,30 +35,12 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void testWeakKeyMap() {
-        final IMap<Object, Object> map = new FWeakKeyMap<>();
-        for (int i = 0; i < 10; i++) {
-            map.put(new Object(), new Object());
-        }
-
-        while (map.size() > 0) {
-            System.gc();
-            LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(1));
-        }
-        assertEquals(0, map.size());
+        testWeak(new FWeakKeyMap<>());
     }
 
     @Test
     public void testWeakValueMap() {
-        final IMap<Object, Object> map = new FWeakValueMap<>();
-        for (int i = 0; i < 10; i++) {
-            map.put(new Object(), new Object());
-        }
-
-        while (map.size() > 0) {
-            System.gc();
-            LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(1));
-        }
-        assertEquals(0, map.size());
+        testWeak(new FWeakValueMap<>());
     }
 
     @Test
@@ -131,5 +113,16 @@ public class ExampleInstrumentedTest {
         assertEquals(null, map.get("3"));
         assertEquals(false, map.containsKey("2"));
         assertEquals(false, map.containsKey("3"));
+    }
+
+    private void testWeak(IMap<Object, Object> map) {
+        for (int i = 0; i < 10; i++) {
+            map.put(new Object(), new Object());
+        }
+        while (map.size() > 0) {
+            System.gc();
+            LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(1));
+        }
+        assertEquals(0, map.size());
     }
 }
