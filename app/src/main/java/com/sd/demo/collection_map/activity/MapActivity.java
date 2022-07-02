@@ -12,7 +12,7 @@ import com.sd.lib.collection.map.impl.FWeakKeyMap;
 import com.sd.lib.collection.map.impl.FWeakValueMap;
 
 public class MapActivity extends AppCompatActivity {
-    public static final String TAG = MapActivity.class.getSimpleName();
+    private static final String TAG = MapActivity.class.getSimpleName();
 
     private ActivityMapBinding mBinding;
 
