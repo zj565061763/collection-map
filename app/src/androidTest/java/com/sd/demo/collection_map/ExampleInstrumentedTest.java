@@ -27,10 +27,10 @@ public class ExampleInstrumentedTest {
     private static final String ONE = "1";
 
     @Test
-    public void test_NormalMap() {
-        testNormalMap(new FMap<>());
-        testNormalMap(new FWeakKeyMap<>());
-        testNormalMap(new FWeakValueMap<>());
+    public void testNormal() {
+        testNormal(new FMap<>());
+        testNormal(new FWeakKeyMap<>());
+        testNormal(new FWeakValueMap<>());
     }
 
     @Test
@@ -62,7 +62,7 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void test_uniqueMap() {
+    public void testUniqueMap() {
         IUniqueMap<Object, Object> map = null;
 
         map = new FUniqueMap<>();
@@ -98,7 +98,7 @@ public class ExampleInstrumentedTest {
         assertEquals(null, map.getKeyByValue("2"));
     }
 
-    private void testNormalMap(IMap<Object, Object> map) {
+    private void testNormal(IMap<Object, Object> map) {
         assertEquals(null, map.put("2", "1"));
         assertEquals(1, map.size());
         assertEquals("1", map.get("2"));
