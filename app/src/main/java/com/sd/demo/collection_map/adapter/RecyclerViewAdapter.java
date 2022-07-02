@@ -22,7 +22,7 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel> {
     private static final Handler HANDLER = new Handler(Looper.getMainLooper());
 
     private final Map<View, Integer> mMapWeak = new WeakHashMap<>();
-    private final IUniqueMap<Object, Object> mMapUnique = new FUniqueMap<>();
+    private final IUniqueMap<Integer, View> mMapUnique = new FUniqueMap<>();
 
     @Override
     public int getLayoutId(ViewGroup parent, int viewType) {
@@ -46,6 +46,7 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel> {
         public void run() {
             printMapWeak();
             printMapUnique();
+            printEquals();
         }
     };
 
@@ -54,7 +55,15 @@ public class RecyclerViewAdapter extends FSimpleRecyclerAdapter<DataModel> {
     }
 
     private void printMapUnique() {
-        final Map<Object, Object> map = mMapUnique.toMap(null);
+        final Map<Integer, View> map = mMapUnique.toMap(null);
         Log.i(TAG, "printMapUnique mapSize:" + map.size() + "\r\n map:" + map);
+    }
+
+    private void printEquals() {
+        final Map<Integer, View> map = mMapUnique.toMap(null);
+        for (View item : map.values()) {
+            assert mMapWeak.containsKey(item);
+        }
+        Log.i(TAG, "printEquals");
     }
 }
