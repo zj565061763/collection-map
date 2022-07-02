@@ -4,7 +4,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.IUniqueMap;
-import com.sd.lib.collection.map.impl.FHashMap;
+import com.sd.lib.collection.map.impl.FMap;
 import com.sd.lib.collection.map.impl.FUniqueMap;
 import com.sd.lib.collection.map.impl.FWeakKeyMap;
 import com.sd.lib.collection.map.impl.FWeakValueMap;
@@ -25,7 +25,7 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void test_NormalMap() {
-        testNormalMap(new FHashMap<>());
+        testNormalMap(new FMap<>());
         testNormalMap(new FWeakKeyMap<>());
         testNormalMap(new FWeakValueMap<>());
     }

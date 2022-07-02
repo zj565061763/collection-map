@@ -5,14 +5,14 @@ import com.sd.lib.collection.map.IMap;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FHashMap<K, V> implements IMap<K, V> {
+public class FMap<K, V> implements IMap<K, V> {
     private final Map<K, V> mMap;
 
-    public FHashMap() {
+    public FMap() {
         this(new HashMap<>());
     }
 
-    public FHashMap(HashMap<K, V> map) {
+    public FMap(Map<K, V> map) {
         mMap = map;
     }
 

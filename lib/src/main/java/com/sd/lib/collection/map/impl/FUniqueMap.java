@@ -5,6 +5,6 @@ package com.sd.lib.collection.map.impl;
  */
 public class FUniqueMap<K, V> extends BaseUniqueMap<K, V> {
     public FUniqueMap() {
-        super(new FHashMap<>(), new FHashMap<>());
+        super(new FMap<>(), new FMap<>());
     }
 }
