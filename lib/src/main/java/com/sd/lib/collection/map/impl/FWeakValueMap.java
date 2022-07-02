@@ -74,8 +74,7 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
     public void foreach(ForeachCallback<? super K, ? super V> callback) {
         releaseReference();
         for (Map.Entry<K, ValueRef<V>> item : mMap.entrySet()) {
-            final ValueRef<V> ref = item.getValue();
-            final V value = ref.get();
+            final V value = item.getValue().get();
             if (value != null) {
                 if (callback.onItem(item.getKey(), value)) break;
             }
