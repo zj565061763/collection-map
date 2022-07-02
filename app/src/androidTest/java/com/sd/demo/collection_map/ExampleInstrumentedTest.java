@@ -46,6 +46,18 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
+    public void testWeakValueMap() {
+        final IMap<Object, Object> map = new FWeakValueMap<>();
+        map.put("", new Object());
+
+        while (map.size() > 0) {
+            System.gc();
+            LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(1));
+        }
+        assertEquals(0, map.size());
+    }
+
+    @Test
     public void test_uniqueMap() {
         IUniqueMap<Object, Object> map = null;
 
