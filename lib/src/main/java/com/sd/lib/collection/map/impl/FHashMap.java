@@ -6,7 +6,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FHashMap<K, V> implements IMap<K, V> {
-    private final Map<K, V> mMap = new HashMap<>();
+    private final Map<K, V> mMap;
+
+    public FHashMap() {
+        this(new HashMap<>());
+    }
+
+    public FHashMap(HashMap<K, V> map) {
+        mMap = map;
+    }
 
     @Override
     public V put(K key, V value) {
