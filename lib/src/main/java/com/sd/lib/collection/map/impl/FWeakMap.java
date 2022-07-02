@@ -131,7 +131,7 @@ public class FWeakMap<K, V> implements IMap<K, V> {
         public boolean equals(Object obj) {
             if (obj == this) return true;
             if (obj == null || obj.getClass() != getClass()) return false;
-            final FWeakKeyMap.KeyRef other = (FWeakKeyMap.KeyRef) obj;
+            final KeyRef other = (KeyRef) obj;
             return Objects.equals(get(), other.get());
         }
     }
