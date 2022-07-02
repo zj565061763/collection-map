@@ -1,5 +1,7 @@
 package com.sd.demo.collection_map;
 
+import static org.junit.Assert.assertEquals;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.sd.lib.collection.map.IMap;
@@ -12,7 +14,8 @@ import com.sd.lib.collection.map.impl.FWeakValueMap;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertEquals;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -28,6 +31,18 @@ public class ExampleInstrumentedTest {
         testNormalMap(new FMap<>());
         testNormalMap(new FWeakKeyMap<>());
         testNormalMap(new FWeakValueMap<>());
+    }
+
+    @Test
+    public void testWeakKeyMap() {
+        final IMap<Object, Object> map = new FWeakKeyMap<>();
+        map.put(new Object(), "");
+
+        while (map.size() > 0) {
+            System.gc();
+            LockSupport.parkNanos(TimeUnit.SECONDS.toNanos(1));
+        }
+        assertEquals(0, map.size());
     }
 
     @Test
