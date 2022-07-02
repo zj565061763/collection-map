@@ -10,37 +10,25 @@ public class FHashMap<K, V> implements IMap<K, V> {
 
     @Override
     public V put(K key, V value) {
-        if (key == null || value == null) {
-            return null;
-        }
-
+        if (key == null || value == null) return null;
         return mMap.put(key, value);
     }
 
     @Override
     public V remove(Object key) {
-        if (key == null) {
-            return null;
-        }
-
+        if (key == null) return null;
         return mMap.remove(key);
     }
 
     @Override
     public V get(Object key) {
-        if (key == null) {
-            return null;
-        }
-
+        if (key == null) return null;
         return mMap.get(key);
     }
 
     @Override
     public boolean containsKey(Object key) {
-        if (key == null) {
-            return false;
-        }
-
+        if (key == null) return false;
         return mMap.containsKey(key);
     }
 
