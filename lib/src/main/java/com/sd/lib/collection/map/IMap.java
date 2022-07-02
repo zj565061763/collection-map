@@ -15,5 +15,11 @@ public interface IMap<K, V> {
 
     void clear();
 
+    void foreach(ForeachCallback<? super K, ? super V> callback);
+
     Map<K, V> toMap();
+
+    interface ForeachCallback<K, V> {
+        boolean onItem(K key, V value);
+    }
 }

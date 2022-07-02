@@ -51,6 +51,13 @@ public class FMap<K, V> implements IMap<K, V> {
     }
 
     @Override
+    public void foreach(ForeachCallback<? super K, ? super V> callback) {
+        for (Map.Entry<K, V> item : mMap.entrySet()) {
+            if (callback.onItem(item.getKey(), item.getValue())) break;
+        }
+    }
+
+    @Override
     public Map<K, V> toMap() {
         return new HashMap<>(mMap);
     }

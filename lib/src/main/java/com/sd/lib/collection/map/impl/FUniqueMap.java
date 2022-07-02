@@ -79,6 +79,11 @@ public class FUniqueMap<K, V> implements IUniqueMap<K, V> {
     }
 
     @Override
+    public void foreach(ForeachCallback<? super K, ? super V> callback) {
+        mMap.foreach(callback);
+    }
+
+    @Override
     public Map<K, V> toMap() {
         return mMap.toMap();
     }
