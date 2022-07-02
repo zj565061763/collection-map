@@ -89,8 +89,7 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
         }
 
         for (Map.Entry<KeyRef<K>, V> item : mMap.entrySet()) {
-            final KeyRef<K> ref = item.getKey();
-            final K key = ref.get();
+            final K key = item.getKey().get();
             if (key != null) {
                 map.put(key, item.getValue());
             }
