@@ -12,8 +12,8 @@ import java.util.Map;
  * value是弱引用的Map
  */
 public class FWeakValueMap<K, V> implements IMap<K, V> {
-    private final Map<K, WeakRef<V>> mMap;
     private final ReferenceQueue<V> mQueue = new ReferenceQueue<>();
+    private final Map<K, WeakRef<V>> mMap;
 
     public FWeakValueMap() {
         this(new HashMap<>());
