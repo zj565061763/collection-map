@@ -13,8 +13,16 @@ import java.util.Map;
  * value是弱引用的Map
  */
 public class FWeakValueMap<K, V> implements IMap<K, V> {
-    private final Map<K, WeakValue<V>> mMap = new HashMap<>();
+    private final Map<K, WeakRef<V>> mMap;
     private final ReferenceQueue<V> mQueue = new ReferenceQueue<>();
+
+    public FWeakValueMap() {
+        this(new HashMap<>());
+    }
+
+    public FWeakValueMap(Map<K, WeakRef<V>> map) {
+        mMap = map;
+    }
 
     @Override
     public V put(K key, V value) {
@@ -22,8 +30,8 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final WeakValue<V> newRef = new WeakValue(key, value, mQueue);
-        final WeakValue<V> oldRef = mMap.put(key, newRef);
+        final WeakRef<V> newRef = new WeakRef(key, value, mQueue);
+        final WeakRef<V> oldRef = mMap.put(key, newRef);
         return oldRef == null ? null : oldRef.get();
     }
 
@@ -33,7 +41,7 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final WeakValue<V> ref = mMap.remove(key);
+        final WeakRef<V> ref = mMap.remove(key);
         return ref == null ? null : ref.get();
     }
 
@@ -43,7 +51,7 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final WeakValue<V> ref = mMap.get(key);
+        final WeakRef<V> ref = mMap.get(key);
         return ref == null ? null : ref.get();
     }
 
@@ -68,10 +76,10 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
         releaseReference();
         final Map<K, V> map = new HashMap<>();
 
-        final Iterator<Map.Entry<K, WeakValue<V>>> it = mMap.entrySet().iterator();
+        final Iterator<Map.Entry<K, WeakRef<V>>> it = mMap.entrySet().iterator();
         while (it.hasNext()) {
-            final Map.Entry<K, WeakValue<V>> item = it.next();
-            final WeakValue<V> ref = item.getValue();
+            final Map.Entry<K, WeakRef<V>> item = it.next();
+            final WeakRef<V> ref = item.getValue();
 
             final V value = ref.get();
             if (value != null) {
@@ -88,15 +96,15 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
             final Reference<? extends V> reference = mQueue.poll();
             if (reference == null) break;
 
-            final WeakValue<V> ref = ((WeakValue<V>) reference);
+            final WeakRef<V> ref = ((WeakRef<V>) reference);
             mMap.remove(ref.mKey);
         }
     }
 
-    private static class WeakValue<T> extends WeakReference<T> {
+    public static final class WeakRef<T> extends WeakReference<T> {
         private final Object mKey;
 
-        public WeakValue(Object key, T referent, ReferenceQueue<? super T> q) {
+        public WeakRef(Object key, T referent, ReferenceQueue<? super T> q) {
             super(referent, q);
             mKey = key;
         }
