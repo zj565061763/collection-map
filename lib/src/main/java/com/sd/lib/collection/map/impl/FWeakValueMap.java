@@ -6,7 +6,6 @@ import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -75,17 +74,11 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
     public Map<K, V> toMap() {
         releaseReference();
         final Map<K, V> map = new HashMap<>();
-
-        final Iterator<Map.Entry<K, WeakRef<V>>> it = mMap.entrySet().iterator();
-        while (it.hasNext()) {
-            final Map.Entry<K, WeakRef<V>> item = it.next();
+        for (Map.Entry<K, WeakRef<V>> item : mMap.entrySet()) {
             final WeakRef<V> ref = item.getValue();
-
             final V value = ref.get();
             if (value != null) {
                 map.put(item.getKey(), value);
-            } else {
-                it.remove();
             }
         }
         return map;
