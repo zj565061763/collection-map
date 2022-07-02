@@ -83,18 +83,15 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
 
     @Override
     public Map<K, V> toMap(Map<K, V> map) {
-        releaseReference();
-        if (map == null) {
-            map = new HashMap<>();
-        }
-
-        for (Map.Entry<K, ValueRef<V>> item : mMap.entrySet()) {
-            final V value = item.getValue().get();
-            if (value != null) {
-                map.put(item.getKey(), value);
+        final Map<K, V> result = map == null ? new HashMap<>() : map;
+        foreach(new ForeachCallback<K, V>() {
+            @Override
+            public boolean onItem(K key, V value) {
+                result.put(key, value);
+                return false;
             }
-        }
-        return map;
+        });
+        return result;
     }
 
     private void releaseReference() {
