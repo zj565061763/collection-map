@@ -105,16 +105,19 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
             if (reference == null) break;
 
             final ValueRef<V> ref = ((ValueRef<V>) reference);
-            mMap.remove(ref.mKey);
+            final Object key = ref.mKey.get();
+            if (key != null) {
+                mMap.remove(key);
+            }
         }
     }
 
     public static final class ValueRef<T> extends WeakReference<T> {
-        private final Object mKey;
+        private final WeakReference mKey;
 
         private ValueRef(Object key, T referent, ReferenceQueue<? super T> q) {
             super(referent, q);
-            mKey = key;
+            mKey = new WeakReference(key);
         }
     }
 }
