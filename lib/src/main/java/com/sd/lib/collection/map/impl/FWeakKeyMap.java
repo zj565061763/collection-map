@@ -66,6 +66,11 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
     }
 
     @Override
+    public void clear() {
+        mMap.clear();
+    }
+
+    @Override
     public void foreach(ForeachCallback<? super K, ? super V> callback) {
         releaseReference();
         for (Map.Entry<KeyRef<K>, V> item : mMap.entrySet()) {
@@ -75,11 +80,6 @@ public class FWeakKeyMap<K, V> implements IMap<K, V> {
                 if (callback.onItem(key, item.getValue())) break;
             }
         }
-    }
-
-    @Override
-    public void clear() {
-        mMap.clear();
     }
 
     @Override
