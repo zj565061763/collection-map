@@ -36,7 +36,9 @@ public class ExampleInstrumentedTest {
     @Test
     public void testWeakKeyMap() {
         final IMap<Object, Object> map = new FWeakKeyMap<>();
-        map.put(new Object(), "");
+        for (int i = 0; i < 10; i++) {
+            map.put(new Object(), i);
+        }
 
         while (map.size() > 0) {
             System.gc();
@@ -48,7 +50,9 @@ public class ExampleInstrumentedTest {
     @Test
     public void testWeakValueMap() {
         final IMap<Object, Object> map = new FWeakValueMap<>();
-        map.put("", new Object());
+        for (int i = 0; i < 10; i++) {
+            map.put(i, new Object());
+        }
 
         while (map.size() > 0) {
             System.gc();
