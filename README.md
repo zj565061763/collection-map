@@ -11,6 +11,9 @@ map容器
 
 # 接口
 ```java
+/**
+ * 此接口的默认实现类方法参数的key和value都不支持null，如果传null不会抛异常，会失败。
+ */
 public interface IMap<K, V> {
     V put(K key, V value);
 
@@ -19,6 +22,8 @@ public interface IMap<K, V> {
     V get(Object key);
 
     boolean containsKey(Object key);
+
+    boolean containsValue(Object value);
 
     int size();
 
@@ -29,12 +34,15 @@ public interface IMap<K, V> {
     Map<K, V> toMap(Map<K, V> map);
 
     interface ForeachCallback<K, V> {
-        boolean onItem(K key, V value);
+        boolean onItem(K itemKey, V itemValue);
     }
 }
 ```
 
 ```java
+/**
+ * key和value都是唯一的Map
+ */
 public interface IUniqueMap<K, V> extends IMap<K, V> {
     /**
      * 根据value移除键值对
