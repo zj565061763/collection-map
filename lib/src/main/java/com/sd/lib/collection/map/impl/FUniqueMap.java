@@ -42,8 +42,6 @@ public class FUniqueMap<K, V> implements IUniqueMap<K, V> {
 
     @Override
     public V remove(Object key) {
-        if (key == null) return null;
-
         final V value = mMap.remove(key);
         if (value == null) return null;
 
@@ -53,13 +51,11 @@ public class FUniqueMap<K, V> implements IUniqueMap<K, V> {
 
     @Override
     public V get(Object key) {
-        if (key == null) return null;
         return mMap.get(key);
     }
 
     @Override
     public boolean containsKey(Object key) {
-        if (key == null) return false;
         return mMap.containsKey(key);
     }
 
