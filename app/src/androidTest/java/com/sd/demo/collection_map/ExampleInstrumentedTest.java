@@ -4,9 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
-import com.sd.lib.collection.map.IUniqueMap;
 import com.sd.lib.collection.map.FMap;
 import com.sd.lib.collection.map.FUniqueMap;
+import com.sd.lib.collection.map.IUniqueMap;
 import com.sd.lib.collection.map.weak.FWeakKeyMap;
 import com.sd.lib.collection.map.weak.FWeakMap;
 import com.sd.lib.collection.map.weak.FWeakValueMap;
@@ -21,7 +21,6 @@ import org.junit.runner.RunWith;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    private static final String ONE = "1";
 
     @Test
     public void testNormal() {
