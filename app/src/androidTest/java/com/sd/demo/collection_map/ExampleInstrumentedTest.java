@@ -5,11 +5,11 @@ import static org.junit.Assert.assertEquals;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.sd.lib.collection.map.IUniqueMap;
-import com.sd.lib.collection.map.impl.FMap;
-import com.sd.lib.collection.map.impl.FUniqueMap;
-import com.sd.lib.collection.map.impl.FWeakKeyMap;
-import com.sd.lib.collection.map.impl.FWeakMap;
-import com.sd.lib.collection.map.impl.FWeakValueMap;
+import com.sd.lib.collection.map.FMap;
+import com.sd.lib.collection.map.FUniqueMap;
+import com.sd.lib.collection.map.weak.FWeakKeyMap;
+import com.sd.lib.collection.map.weak.FWeakMap;
+import com.sd.lib.collection.map.weak.FWeakValueMap;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

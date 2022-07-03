@@ -12,7 +12,7 @@ import com.sd.demo.collection_map.model.DataModel;
 import com.sd.lib.adapter.FSimpleRecyclerAdapter;
 import com.sd.lib.adapter.viewholder.FRecyclerViewHolder;
 import com.sd.lib.collection.map.IUniqueMap;
-import com.sd.lib.collection.map.impl.FUniqueMap;
+import com.sd.lib.collection.map.FUniqueMap;
 
 import java.util.Map;
 import java.util.WeakHashMap;

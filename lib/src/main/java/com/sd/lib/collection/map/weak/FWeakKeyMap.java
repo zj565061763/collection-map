@@ -1,4 +1,4 @@
-package com.sd.lib.collection.map.impl;
+package com.sd.lib.collection.map.weak;
 
 import com.sd.lib.collection.map.IMap;
 
@@ -9,16 +9,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class FWeakMap<K, V> implements IMap<K, V> {
-    private final ReferenceQueue<K> mQueueKey = new ReferenceQueue<>();
-    private final ReferenceQueue<V> mQueueValue = new ReferenceQueue<>();
-    private final Map<KeyRef<K>, ValueRef<V>> mMap;
+/**
+ * key是弱引用的Map
+ */
+public class FWeakKeyMap<K, V> implements IMap<K, V> {
+    private final ReferenceQueue<K> mQueue = new ReferenceQueue<>();
+    private final Map<KeyRef<K>, V> mMap;
 
-    public FWeakMap() {
+    public FWeakKeyMap() {
         this(new HashMap<>());
     }
 
-    public FWeakMap(Map<KeyRef<K>, ValueRef<V>> map) {
+    public FWeakKeyMap(Map<KeyRef<K>, V> map) {
         mMap = map;
     }
 
@@ -28,10 +30,8 @@ public class FWeakMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final KeyRef<K> keyRef = new KeyRef(key, mQueueKey);
-        final ValueRef<V> valueRef = new ValueRef(keyRef, value, mQueueValue);
-        final ValueRef<V> ref = mMap.put(keyRef, valueRef);
-        return ref == null ? null : ref.get();
+        final KeyRef<K> ref = new KeyRef(key, mQueue);
+        return mMap.put(ref, value);
     }
 
     @Override
@@ -40,9 +40,8 @@ public class FWeakMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final KeyRef<K> keyRef = new KeyRef(key, mQueueKey);
-        final ValueRef<V> ref = mMap.remove(keyRef);
-        return ref == null ? null : ref.get();
+        final KeyRef<K> ref = new KeyRef(key, mQueue);
+        return mMap.remove(ref);
     }
 
     @Override
@@ -51,9 +50,8 @@ public class FWeakMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final KeyRef<K> keyRef = new KeyRef(key, mQueueKey);
-        final ValueRef<V> ref = mMap.get(keyRef);
-        return ref == null ? null : ref.get();
+        final KeyRef<K> ref = new KeyRef(key, mQueue);
+        return mMap.get(ref);
     }
 
     @Override
@@ -75,9 +73,9 @@ public class FWeakMap<K, V> implements IMap<K, V> {
     @Override
     public void foreach(ForeachCallback<? super K, ? super V> callback) {
         releaseReference();
-        for (Map.Entry<KeyRef<K>, ValueRef<V>> item : mMap.entrySet()) {
+        for (Map.Entry<KeyRef<K>, V> item : mMap.entrySet()) {
             final K key = item.getKey().get();
-            final V value = item.getValue().get();
+            final V value = item.getValue();
             if (key != null && value != null) {
                 if (callback.onItem(key, value)) break;
             }
@@ -99,18 +97,10 @@ public class FWeakMap<K, V> implements IMap<K, V> {
 
     private void releaseReference() {
         while (true) {
-            final Reference<? extends K> reference = mQueueKey.poll();
+            final Reference<? extends K> reference = mQueue.poll();
             if (reference == null) break;
 
             mMap.remove(reference);
-        }
-
-        while (true) {
-            final Reference<? extends V> reference = mQueueValue.poll();
-            if (reference == null) break;
-
-            final ValueRef<V> ref = ((ValueRef<V>) reference);
-            mMap.remove(ref.mKey);
         }
     }
 
@@ -133,15 +123,6 @@ public class FWeakMap<K, V> implements IMap<K, V> {
             if (obj == null || obj.getClass() != getClass()) return false;
             final KeyRef other = (KeyRef) obj;
             return Objects.equals(get(), other.get());
-        }
-    }
-
-    public static final class ValueRef<T> extends WeakReference<T> {
-        private final Object mKey;
-
-        private ValueRef(Object key, T referent, ReferenceQueue<? super T> q) {
-            super(referent, q);
-            mKey = key;
         }
     }
 }

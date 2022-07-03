@@ -1,5 +1,6 @@
-package com.sd.lib.collection.map.impl;
+package com.sd.lib.collection.map;
 
+import com.sd.lib.collection.map.FMap;
 import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.IUniqueMap;
 

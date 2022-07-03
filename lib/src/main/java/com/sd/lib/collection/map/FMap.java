@@ -1,6 +1,4 @@
-package com.sd.lib.collection.map.impl;
-
-import com.sd.lib.collection.map.IMap;
+package com.sd.lib.collection.map;
 
 import java.util.HashMap;
 import java.util.Map;

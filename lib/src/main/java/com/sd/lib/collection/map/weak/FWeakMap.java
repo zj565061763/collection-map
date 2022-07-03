@@ -1,4 +1,4 @@
-package com.sd.lib.collection.map.impl;
+package com.sd.lib.collection.map.weak;
 
 import com.sd.lib.collection.map.IMap;
 
@@ -7,19 +7,18 @@ import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
-/**
- * value是弱引用的Map
- */
-public class FWeakValueMap<K, V> implements IMap<K, V> {
-    private final ReferenceQueue<V> mQueue = new ReferenceQueue<>();
-    private final Map<K, ValueRef<V>> mMap;
+public class FWeakMap<K, V> implements IMap<K, V> {
+    private final ReferenceQueue<K> mQueueKey = new ReferenceQueue<>();
+    private final ReferenceQueue<V> mQueueValue = new ReferenceQueue<>();
+    private final Map<KeyRef<K>, ValueRef<V>> mMap;
 
-    public FWeakValueMap() {
+    public FWeakMap() {
         this(new HashMap<>());
     }
 
-    public FWeakValueMap(Map<K, ValueRef<V>> map) {
+    public FWeakMap(Map<KeyRef<K>, ValueRef<V>> map) {
         mMap = map;
     }
 
@@ -29,8 +28,9 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final ValueRef<V> newRef = new ValueRef(key, value, mQueue);
-        final ValueRef<V> ref = mMap.put(key, newRef);
+        final KeyRef<K> keyRef = new KeyRef(key, mQueueKey);
+        final ValueRef<V> valueRef = new ValueRef(keyRef, value, mQueueValue);
+        final ValueRef<V> ref = mMap.put(keyRef, valueRef);
         return ref == null ? null : ref.get();
     }
 
@@ -40,7 +40,8 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final ValueRef<V> ref = mMap.remove(key);
+        final KeyRef<K> keyRef = new KeyRef(key, mQueueKey);
+        final ValueRef<V> ref = mMap.remove(keyRef);
         return ref == null ? null : ref.get();
     }
 
@@ -50,7 +51,8 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
 
         releaseReference();
 
-        final ValueRef<V> ref = mMap.get(key);
+        final KeyRef<K> keyRef = new KeyRef(key, mQueueKey);
+        final ValueRef<V> ref = mMap.get(keyRef);
         return ref == null ? null : ref.get();
     }
 
@@ -73,8 +75,8 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
     @Override
     public void foreach(ForeachCallback<? super K, ? super V> callback) {
         releaseReference();
-        for (Map.Entry<K, ValueRef<V>> item : mMap.entrySet()) {
-            final K key = item.getKey();
+        for (Map.Entry<KeyRef<K>, ValueRef<V>> item : mMap.entrySet()) {
+            final K key = item.getKey().get();
             final V value = item.getValue().get();
             if (key != null && value != null) {
                 if (callback.onItem(key, value)) break;
@@ -97,23 +99,49 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
 
     private void releaseReference() {
         while (true) {
-            final Reference<? extends V> reference = mQueue.poll();
+            final Reference<? extends K> reference = mQueueKey.poll();
+            if (reference == null) break;
+
+            mMap.remove(reference);
+        }
+
+        while (true) {
+            final Reference<? extends V> reference = mQueueValue.poll();
             if (reference == null) break;
 
             final ValueRef<V> ref = ((ValueRef<V>) reference);
-            final Object key = ref.mKey.get();
-            if (key != null) {
-                mMap.remove(key);
-            }
+            mMap.remove(ref.mKey);
+        }
+    }
+
+    public static final class KeyRef<T> extends WeakReference<T> {
+        private final int mHashCode;
+
+        private KeyRef(T referent, ReferenceQueue<? super T> q) {
+            super(referent, q);
+            mHashCode = referent.hashCode();
+        }
+
+        @Override
+        public int hashCode() {
+            return mHashCode;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == this) return true;
+            if (obj == null || obj.getClass() != getClass()) return false;
+            final KeyRef other = (KeyRef) obj;
+            return Objects.equals(get(), other.get());
         }
     }
 
     public static final class ValueRef<T> extends WeakReference<T> {
-        private final WeakReference mKey;
+        private final Object mKey;
 
         private ValueRef(Object key, T referent, ReferenceQueue<? super T> q) {
             super(referent, q);
-            mKey = new WeakReference(key);
+            mKey = key;
         }
     }
 }

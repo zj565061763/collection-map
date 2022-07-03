@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.sd.demo.collection_map.databinding.ActivityMapBinding;
 import com.sd.lib.collection.map.IMap;
-import com.sd.lib.collection.map.impl.FWeakKeyMap;
-import com.sd.lib.collection.map.impl.FWeakValueMap;
+import com.sd.lib.collection.map.weak.FWeakKeyMap;
+import com.sd.lib.collection.map.weak.FWeakValueMap;
 
 public class MapActivity extends AppCompatActivity {
     private static final String TAG = MapActivity.class.getSimpleName();
