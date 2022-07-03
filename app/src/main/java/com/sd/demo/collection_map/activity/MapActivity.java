@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.sd.demo.collection_map.databinding.ActivityMapBinding;
 import com.sd.lib.collection.map.IMap;
 import com.sd.lib.collection.map.weak.FWeakKeyMap;
+import com.sd.lib.collection.map.weak.FWeakMap;
 import com.sd.lib.collection.map.weak.FWeakValueMap;
 
 public class MapActivity extends AppCompatActivity {
@@ -16,8 +17,9 @@ public class MapActivity extends AppCompatActivity {
 
     private ActivityMapBinding mBinding;
 
-    private final FWeakKeyMap<Object, Object> mWeakKeyMap = new FWeakKeyMap<>();
-    private final FWeakValueMap<Object, Object> mWeakValueMap = new FWeakValueMap<>();
+    private final IMap<Object, Object> mWeakKeyMap = new FWeakKeyMap<>();
+    private final IMap<Object, Object> mWeakValueMap = new FWeakValueMap<>();
+    private final IMap<Object, Object> mWeakMap = new FWeakMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class MapActivity extends AppCompatActivity {
 
         mWeakKeyMap.put(new Object(), this);
         mWeakValueMap.put(this, new Object());
+        mWeakMap.put(new Object(), new Object());
 
         mBinding.btnTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +54,7 @@ public class MapActivity extends AppCompatActivity {
     private void printSize() {
         Log.i(TAG, "FWeakKeyMap size:" + mWeakKeyMap.size());
         Log.i(TAG, "FWeakValueMap size:" + mWeakValueMap.size());
+        Log.i(TAG, "FWeakMap size:" + mWeakMap.size());
     }
 
     private void printTime(IMap<Object, Object> map) {
