@@ -10,15 +10,14 @@ import java.util.Map;
  */
 public class FUniqueMap<K, V> implements IUniqueMap<K, V> {
     private final IMap<K, V> mMap;
-    private final IMap<V, K> mMapReverse;
+    private final IMap<V, K> mMapReverse = new FMap<>();
 
     public FUniqueMap() {
-        this(new FMap<>(), new FMap<>());
+        this(new FMap<>());
     }
 
-    public FUniqueMap(IMap<K, V> map, IMap<V, K> mapReverse) {
+    public FUniqueMap(IMap<K, V> map) {
         mMap = map;
-        mMapReverse = mapReverse;
     }
 
     @Override
