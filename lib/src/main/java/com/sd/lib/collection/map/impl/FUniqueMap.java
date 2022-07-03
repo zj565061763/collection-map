@@ -47,10 +47,7 @@ public class FUniqueMap<K, V> implements IUniqueMap<K, V> {
         final V value = mMap.remove(key);
         if (value == null) return null;
 
-        final K cacheKey = mMapReverse.remove(value);
-        if (cacheKey == null) {
-            throw new RuntimeException("Cached key was not found");
-        }
+        mMapReverse.remove(value);
         return value;
     }
 
