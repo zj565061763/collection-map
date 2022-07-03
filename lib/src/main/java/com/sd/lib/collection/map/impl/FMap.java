@@ -55,7 +55,7 @@ public class FMap<K, V> implements IMap<K, V> {
         for (Map.Entry<K, V> item : mMap.entrySet()) {
             final K key = item.getKey();
             final V value = item.getValue();
-            // 外部可能对map手动进行了修改，所以这里要检查null
+            // 外部可能对map进行了修改，所以这里要检查null
             if (key != null && value != null) {
                 if (callback.onItem(key, value)) break;
             }
