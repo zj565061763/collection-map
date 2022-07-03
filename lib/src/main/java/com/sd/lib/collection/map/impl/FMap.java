@@ -63,10 +63,14 @@ public class FMap<K, V> implements IMap<K, V> {
 
     @Override
     public Map<K, V> toMap(Map<K, V> map) {
-        if (map == null) {
-            map = new HashMap<>();
-        }
-        map.putAll(mMap);
-        return map;
+        final Map<K, V> result = map == null ? new HashMap<>() : map;
+        foreach(new ForeachCallback<K, V>() {
+            @Override
+            public boolean onItem(K key, V value) {
+                map.put(key, value);
+                return false;
+            }
+        });
+        return result;
     }
 }
