@@ -28,6 +28,7 @@ public class ExampleInstrumentedTest {
         TestUtils.testNormal(new FMap<>());
         TestUtils.testNormal(new FWeakKeyMap<>());
         TestUtils.testNormal(new FWeakValueMap<>());
+        TestUtils.testNormal(new FWeakMap<>());
     }
 
     @Test
@@ -81,6 +82,4 @@ public class ExampleInstrumentedTest {
         assertEquals("3", map.getKeyByValue("1"));
         assertEquals(null, map.getKeyByValue("2"));
     }
-
-
 }
