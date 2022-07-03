@@ -6,6 +6,8 @@ package com.sd.lib.collection.map;
 public interface IUniqueMap<K, V> extends IMap<K, V> {
     /**
      * 根据value移除键值对
+     *
+     * @return 返回被移除的key
      */
     K removeByValue(Object value);
 
