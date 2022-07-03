@@ -73,8 +73,18 @@ public class ExampleInstrumentedTest {
         assertEquals("2", map.getKeyByValue("3"));
 
         map = new FUniqueMap<>();
+        /**
+         * 2 -> 1,  1 -> 2
+         */
         assertEquals(null, map.put("2", "1"));
+        /**
+         * 2 -> 1,  1 -> 2
+         * 3 -> 2,  2 -> 3
+         */
         assertEquals(null, map.put("3", "2"));
+        /**
+         * 3 -> 1, 1 -> 3
+         */
         assertEquals("2", map.put("3", "1"));
         assertEquals(1, map.size());
         assertEquals("1", map.get("3"));
