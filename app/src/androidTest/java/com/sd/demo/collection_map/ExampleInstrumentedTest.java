@@ -83,7 +83,20 @@ public class ExampleInstrumentedTest {
          */
         assertEquals(null, map.put("3", "2"));
         /**
-         * 3 -> 1, 1 -> 3
+         * 1. put reverse (1, 3) return an old key "2"
+         *      2 -> 1,  1 -> 3
+         *      3 -> 2,  2 -> 3
+         * 2. remove old key "2" from normal map
+         *      empty,  1 -> 3
+         *      3 -> 2,  2 -> 3
+         * 3. put normal (3, 1) return an old value "2"
+         *      empty,  1 -> 3
+         *      3 -> 1,  2 -> 3
+         * 4. remove old value "2" from reverse map
+         *      empty,  1 -> 3
+         *      3 -> 1,  empty
+         * 5. finally
+         *      3 -> 1, 1 -> 3
          */
         assertEquals("2", map.put("3", "1"));
         assertEquals(1, map.size());
