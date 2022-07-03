@@ -14,6 +14,8 @@ public interface IMap<K, V> {
 
     boolean containsKey(Object key);
 
+    boolean containsValue(Object value);
+
     int size();
 
     void clear();
@@ -23,6 +25,6 @@ public interface IMap<K, V> {
     Map<K, V> toMap(Map<K, V> map);
 
     interface ForeachCallback<K, V> {
-        boolean onItem(K key, V value);
+        boolean onItem(K itemKey, V itemValue);
     }
 }

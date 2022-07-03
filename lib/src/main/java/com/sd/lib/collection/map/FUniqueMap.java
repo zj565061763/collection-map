@@ -1,9 +1,5 @@
 package com.sd.lib.collection.map;
 
-import com.sd.lib.collection.map.FMap;
-import com.sd.lib.collection.map.IMap;
-import com.sd.lib.collection.map.IUniqueMap;
-
 import java.util.Map;
 
 /**
@@ -58,6 +54,11 @@ public class FUniqueMap<K, V> implements IUniqueMap<K, V> {
     @Override
     public boolean containsKey(Object key) {
         return mMap.containsKey(key);
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        return mMapReverse.containsKey(value);
     }
 
     @Override

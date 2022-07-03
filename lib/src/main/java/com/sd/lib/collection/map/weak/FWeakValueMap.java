@@ -7,6 +7,7 @@ import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * value是弱引用的Map
@@ -60,6 +61,24 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
     }
 
     @Override
+    public boolean containsValue(Object value) {
+        if (value == null) return false;
+        final boolean[] result = {false};
+        foreach(new ForeachCallback<K, V>() {
+            @Override
+            public boolean onItem(K itemKey, V itemValue) {
+                if (Objects.equals(itemValue, value)) {
+                    result[0] = true;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
+        return result[0];
+    }
+
+    @Override
     public int size() {
         releaseReference();
         return mMap.size();
@@ -87,8 +106,8 @@ public class FWeakValueMap<K, V> implements IMap<K, V> {
         final Map<K, V> result = map == null ? new HashMap<>() : map;
         foreach(new ForeachCallback<K, V>() {
             @Override
-            public boolean onItem(K key, V value) {
-                result.put(key, value);
+            public boolean onItem(K itemKey, V itemValue) {
+                result.put(itemKey, itemValue);
                 return false;
             }
         });

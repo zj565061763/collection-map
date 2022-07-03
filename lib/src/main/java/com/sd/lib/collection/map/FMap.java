@@ -39,6 +39,12 @@ public class FMap<K, V> implements IMap<K, V> {
     }
 
     @Override
+    public boolean containsValue(Object value) {
+        if (value == null) return false;
+        return mMap.containsValue(value);
+    }
+
+    @Override
     public int size() {
         return mMap.size();
     }
@@ -65,8 +71,8 @@ public class FMap<K, V> implements IMap<K, V> {
         final Map<K, V> result = map == null ? new HashMap<>() : map;
         foreach(new ForeachCallback<K, V>() {
             @Override
-            public boolean onItem(K key, V value) {
-                map.put(key, value);
+            public boolean onItem(K itemKey, V itemValue) {
+                map.put(itemKey, itemValue);
                 return false;
             }
         });
