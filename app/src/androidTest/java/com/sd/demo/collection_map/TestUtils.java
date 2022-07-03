@@ -13,6 +13,7 @@ public class TestUtils {
         assertEquals(1, map.size());
         assertEquals("1", map.get("2"));
         assertEquals(true, map.containsKey("2"));
+        assertEquals(true, map.containsValue("1"));
 
         assertEquals(null, map.put("3", "1"));
         assertEquals(2, map.size());
@@ -20,6 +21,7 @@ public class TestUtils {
         assertEquals("1", map.get("3"));
         assertEquals(true, map.containsKey("2"));
         assertEquals(true, map.containsKey("3"));
+        assertEquals(true, map.containsValue("1"));
 
         assertEquals("1", map.put("3", "2"));
         assertEquals(2, map.size());
@@ -27,6 +29,8 @@ public class TestUtils {
         assertEquals("2", map.get("3"));
         assertEquals(true, map.containsKey("2"));
         assertEquals(true, map.containsKey("3"));
+        assertEquals(true, map.containsValue("1"));
+        assertEquals(true, map.containsValue("2"));
 
         assertEquals("2", map.remove("3"));
         assertEquals(1, map.size());
@@ -34,6 +38,8 @@ public class TestUtils {
         assertEquals(null, map.get("3"));
         assertEquals(true, map.containsKey("2"));
         assertEquals(false, map.containsKey("3"));
+        assertEquals(true, map.containsValue("1"));
+        assertEquals(false, map.containsValue("2"));
 
         map.clear();
         assertEquals(0, map.size());
@@ -41,6 +47,8 @@ public class TestUtils {
         assertEquals(null, map.get("3"));
         assertEquals(false, map.containsKey("2"));
         assertEquals(false, map.containsKey("3"));
+        assertEquals(false, map.containsValue("1"));
+        assertEquals(false, map.containsValue("2"));
     }
 
     public static void testWeak(IMap<Object, Object> map) {
