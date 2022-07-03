@@ -82,21 +82,15 @@ public class FUniqueMap<K, V> implements IUniqueMap<K, V> {
 
     @Override
     public K removeByValue(Object value) {
-        if (value == null) return null;
-
         final K key = mMapReverse.remove(value);
         if (key == null) return null;
 
-        final V cacheValue = mMap.remove(key);
-        if (cacheValue == null) {
-            throw new RuntimeException("Cached value was not found");
-        }
+        mMap.remove(key);
         return key;
     }
 
     @Override
     public K getKeyByValue(Object value) {
-        if (value == null) return null;
         return mMapReverse.get(value);
     }
 }
